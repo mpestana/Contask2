@@ -40,7 +40,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
-            android:value="AIzaSyBZX8Ie7KteOIrl54Le8iwVa9NqPDAiicw" />
+            android:value="AIzaSyDjBrAm-Dz_pGQmlV3xHifJHUjNYFQvJjg" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBZX8Ie7KteOIrl54Le8iwVa9NqPDAiicw" />
