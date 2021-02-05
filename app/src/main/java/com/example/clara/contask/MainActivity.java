@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import com.example.clara.contask.model.Tarefa;
 import com.example.clara.contask.interfaces.TarefaI;
+import com.example.clara.contask.services.TasksService;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.awareness.state.Weather;
@@ -54,30 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://floating-taiga-06247.herokuapp.com/api/").
-                addConverterFactory(GsonConverterFactory.create()).
-                build();
-
-        TarefaI api = retrofit.create(TarefaI.class);
-        Call<List<Tarefa>> call = api.getTarefas();
-        call.enqueue(new Callback<List<Tarefa>>() {
-            @Override
-            public void onResponse(Call<List<Tarefa>> call, Response<List<Tarefa>> response) {
-                List<Tarefa> tarefas = response.body();
-                for(Tarefa t: tarefas){
-                    Log.d("Titulo",t.getTitulo());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Tarefa>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-
-        broadcastReceiver = new BroadcastReceiver() {
+       /* broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String s = intent.getStringExtra(ServiceUtil.SERVICE_MESSAGE);
@@ -122,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("MainActivity2", "Error saving log: " + e.toString());
             }
         }
-
+        */
         /****** Facebook Data *********/
         FacebookSdk.sdkInitialize(getApplicationContext());
         Bundle inBundle = getIntent().getExtras();
@@ -213,8 +191,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void loadScrollActivity(View view){
-        Intent intent = new Intent(this, SampleCarouselViewActivity.class);
-        startActivity(intent);
+       Log.i("to aquii", "to aquii");
+       TasksService service = new TasksService();
+       service.getAllTasks();
+
+        //Intent intent = new Intent(this, SampleCarouselViewActivity.class);
+       // startActivity(intent);
     }
 
     // escutador para localização via GPS (pega as coordenadas geograficas do dispositivo)

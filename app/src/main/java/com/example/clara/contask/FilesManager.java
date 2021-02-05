@@ -125,9 +125,11 @@ public class FilesManager {
                 //IME -> -13.001261,-38.507341
                 //Bib -> -13.001894,-38.509001
 
+                //titulo #1(boolean)#
+                //titulo #2(range)#
 
                 /*
-                //printWriter.println("loc=-12.86472, -38.29068/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(0)Teste em LAuro de Freitas?#1#");
+                //printWriter.println("loc=-12.86472, -38.29068/hInicio=/hFim=//relações=//carro=///departamento=///temperatura=////condições_climatica=////humid=*1*(0)Teste em LAuro de Freitas?#1#");
                 printWriter.println("loc=-13.00179, -38.50721/hIni=1843/hFim=2300//rela=//car=///dep=///temp=////cond=////humid=*1*(1)[Contexto Noite] Classifique a iluminação deste local#2#");
                 printWriter.println("loc=-13.00141, -38.50806/hIni=0500/hFim=1700//rela=//car=///dep=///temp=////cond=////humid=*1*(2)[Contexto Dia] Classifique o grau de limpeza deste local?#2#");
                 printWriter.println("loc=-13.00275, -38.50688/hIni=/hFim=//rela=//car=///dep=///temp=30,50////cond=////humid=*1*(3)[Contexto Temperatura Alta] Classifique o nível de calor nesse local. #2#");
