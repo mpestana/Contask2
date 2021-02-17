@@ -25,7 +25,6 @@ import java.io.IOException;
 
 import com.example.clara.contask.model.Tarefa;
 import com.example.clara.contask.interfaces.TarefaI;
-import com.example.clara.contask.services.TasksService;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.awareness.state.Weather;
@@ -191,12 +190,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void loadScrollActivity(View view){
-       Log.i("to aquii", "to aquii");
-       TasksService service = new TasksService();
-       service.getAllTasks();
 
-        //Intent intent = new Intent(this, SampleCarouselViewActivity.class);
-       // startActivity(intent);
+        Intent intent = new Intent(this, SampleCarouselViewActivity.class);
+        startActivity(intent);
     }
 
     // escutador para localização via GPS (pega as coordenadas geograficas do dispositivo)

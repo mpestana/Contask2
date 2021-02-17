@@ -168,7 +168,7 @@ public class ServiceUtil extends Service implements LocationListener {
         }
 
         LocationServices.FusedLocationApi
-                    .requestLocationUpdates(client, locationRequest, this);
+                .requestLocationUpdates(client, locationRequest, this);
         Log.i("MainActivity", "REQUEST FEITO");
     }
 
@@ -229,163 +229,163 @@ public class ServiceUtil extends Service implements LocationListener {
             Log.i("MainActivity", "Distance [" + i + "]: " + distance);
             //Log.i("MainActivity2", "Worker Distance to Task(meters): " + distance);
 
-           //-exp2 if (distance <= 600) { //se o usuário chega perto do contexto de local -- ativar contexto lugar
-                //    Intent intent = new Intent(this, ShowNotsOnMap.class);
-                //    String message = mTextView2.getText().toString();
-                //    intent.putExtra(LATLNGGPSNET_MESSAGE, message);
-                //    startActivity(intent);
-                contexto_selecionado = CONTEXTO_LUGAR;
-                //verifica contexto de tempo
-                String hIni = list.get(i).substring(list.get(i).indexOf("hIni=") + 5, list.get(i).indexOf("/hF"));
-                String hFim =
-                        list.get(i).substring(list.get(i).indexOf("hFim=") + 5, list.get(i).indexOf("//r"));
+            //-exp2 if (distance <= 600) { //se o usuário chega perto do contexto de local -- ativar contexto lugar
+            //    Intent intent = new Intent(this, ShowNotsOnMap.class);
+            //    String message = mTextView2.getText().toString();
+            //    intent.putExtra(LATLNGGPSNET_MESSAGE, message);
+            //    startActivity(intent);
+            contexto_selecionado = CONTEXTO_LUGAR;
+            //verifica contexto de tempo
+            String hIni = list.get(i).substring(list.get(i).indexOf("hIni=") + 5, list.get(i).indexOf("/hF"));
+            String hFim =
+                    list.get(i).substring(list.get(i).indexOf("hFim=") + 5, list.get(i).indexOf("//r"));
 
-                //if (!hIni.equals("") & !hFim.equals("")) { //Ativar Contexto Tempo
-                    //Calculo do tempo
-                    Calendar c = Calendar.getInstance();
-                    int hora = c.get(Calendar.HOUR_OF_DAY); //0-23
-                    int minuto = c.get(Calendar.MINUTE);//0-60
-                    String minutoStr = "" + minuto;
-                    if (minuto < 10 && minuto >= 0) minutoStr = 0 + minutoStr;
-                    String horaStr = hora + minutoStr;
-                    Integer horaAtual = Integer.parseInt(horaStr);
+            //if (!hIni.equals("") & !hFim.equals("")) { //Ativar Contexto Tempo
+            //Calculo do tempo
+            Calendar c = Calendar.getInstance();
+            int hora = c.get(Calendar.HOUR_OF_DAY); //0-23
+            int minuto = c.get(Calendar.MINUTE);//0-60
+            String minutoStr = "" + minuto;
+            if (minuto < 10 && minuto >= 0) minutoStr = 0 + minutoStr;
+            String horaStr = hora + minutoStr;
+            Integer horaAtual = Integer.parseInt(horaStr);
 
-                    //Log.i("MainActivity2", "Worker Real Time (HHMM): " + horaStr);
-                if (!hIni.equals("") & !hFim.equals("")) {
-                    Integer horaInicio = Integer.parseInt(hIni);
-                    Integer horaFim = Integer.parseInt(hFim);
+            //Log.i("MainActivity2", "Worker Real Time (HHMM): " + horaStr);
+            if (!hIni.equals("") & !hFim.equals("")) {
+                Integer horaInicio = Integer.parseInt(hIni);
+                Integer horaFim = Integer.parseInt(hFim);
 
-                     if ((horaAtual > horaInicio) & (horaAtual < horaFim)) {
-                        Log.i("MainActivity", "Contexto de tempo atendido");
-                        if(horaInicio>=0500 && horaFim < 1800){
-                            contexto_selecionado = CONTEXTO_DIA;
-                        }else{
-                            contexto_selecionado = CONTEXTO_NOITE;
-                        }
-                    } else {
-                        Log.e("MainActivity", "Tarefa nao recebida - Contexto de tempo não foi atendido");
-                        continue;
+                if ((horaAtual > horaInicio) & (horaAtual < horaFim)) {
+                    Log.i("MainActivity", "Contexto de tempo atendido");
+                    if(horaInicio>=0500 && horaFim < 1800){
+                        contexto_selecionado = CONTEXTO_DIA;
+                    }else{
+                        contexto_selecionado = CONTEXTO_NOITE;
                     }
-                }// ativar contexto tempo
+                } else {
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de tempo não foi atendido");
+                    continue;
+                }
+            }// ativar contexto tempo
 
-                String friendFilter = list.get(i).substring(list.get(i).indexOf("rela=") + 5, list.get(i).indexOf("//c"));
-                if (!friendFilter.equals("")) {
-                    if (idList == null) {
-                        Log.e("MainActivity", "Tarefa nao recebida - Contexto de relacao 'FacebookFriends' não pôde ser detectado");
-                        continue;
-                    }
-                    if (idList.contains(friendFilter)) {
-                        Log.e("MainActivity", "Contexto de relacao atendido");
-                    } else {
-                        Log.e("MainActivity", "Tarefa nao recebida - Contexto de relacao não foi atendido");
-                        continue;
-                    }
+            String friendFilter = list.get(i).substring(list.get(i).indexOf("rela=") + 5, list.get(i).indexOf("//c"));
+            if (!friendFilter.equals("")) {
+                if (idList == null) {
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de relacao 'FacebookFriends' não pôde ser detectado");
+                    continue;
+                }
+                if (idList.contains(friendFilter)) {
+                    Log.e("MainActivity", "Contexto de relacao atendido");
+                } else {
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de relacao não foi atendido");
+                    continue;
+                }
+            }
+
+            String temCar = list.get(i).substring(list.get(i).indexOf("car=") + 4, list.get(i).indexOf("///d"));
+            if (!temCar.equals("")) {
+                //individualidade
+                Boolean testCar = true;//pega do cadastro
+                Boolean car = Boolean.parseBoolean(temCar);
+                if (testCar.equals(car)) {
+                    Log.e("MainActivity", "Contexto de individualidade(carro) atendido");
+                } else {
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de individualidade(carro) não foi atendido");
+                    continue;
+                }
+            }
+
+            String depart = list.get(i).substring(list.get(i).indexOf("dep=") + 4, list.get(i).lastIndexOf("///t"));
+            if (!depart.equals("")) {
+                //individualidade
+                int testDep = 1;//pega do cadastro
+                int dep = Integer.parseInt(depart);
+                if (testDep == dep) {
+                    Log.e("MainActivity", "Contexto de individualidade(dep) atendido");
+                } else {
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de individualidade(dep) não foi atendido");
+                    continue;
+                }
+            }
+
+            String temp = list.get(i).substring(list.get(i).indexOf("temp=") + 5, list.get(i).indexOf("////c"));
+            if (!temp.equals("")) {
+
+                if (mWeather == null) {//erro
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de Clima não pôde ser detectado");
+                    continue;
                 }
 
-                String temCar = list.get(i).substring(list.get(i).indexOf("car=") + 4, list.get(i).indexOf("///d"));
-                if (!temCar.equals("")) {
-                    //individualidade
-                    Boolean testCar = true;//pega do cadastro
-                    Boolean car = Boolean.parseBoolean(temCar);
-                    if (testCar.equals(car)) {
-                        Log.e("MainActivity", "Contexto de individualidade(carro) atendido");
-                    } else {
-                        Log.e("MainActivity", "Tarefa nao recebida - Contexto de individualidade(carro) não foi atendido");
-                        continue;
+                float tempAtual = mWeather.getTemperature(2);
+                String temps[] = temp.split(Pattern.quote(","));
+
+                if (tempAtual >= Integer.parseInt(temps[0]) && tempAtual <= Integer.parseInt(temps[1])) {
+                    Log.e("MainActivity", "Tarefa recebida - Contexto de temperatura atendido");
+
+                    if(Integer.parseInt(temps[0])>=30){
+                        contexto_selecionado=CONTEXTO_TEMP_ALTA;
                     }
+
+                } else {
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de temperatura nao atendido");
+                    continue;
+                }
+            }
+            String cond = list.get(i).substring(list.get(i).indexOf("cond=") + 5, list.get(i).indexOf("////h"));
+            if (!cond.equals("")) {
+                if (mWeather == null) {//erro
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de Clima não pôde ser detectado");
+                    continue;
+                }
+                //Calculo da condicao climatica
+                int[] condAtual = mWeather.getConditions();
+                if (Arrays.asList(condAtual).contains(Integer.parseInt(cond))) {
+                    Log.e("MainActivity", "Tarefa recebida - Contexto de condicao atendido");
+                    if(Integer.parseInt(cond)==Weather.CONDITION_RAINY){
+                        contexto_selecionado = CONTEXTO_CHUVA;
+                    }
+                } else {
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de condicao nao atendido");
+                    continue;
+                }
+            }
+            String humid = list.get(i).substring(list.get(i).indexOf("humid=") + 6, list.get(i).indexOf("*"));
+            if (!humid.equals("")) {
+                if (mWeather == null) {//erro
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de Clima não pôde ser detectado");
+                    continue;
+                }
+                //Calculo da Humidade
+                int humidAtual = mWeather.getHumidity();
+                String humids[] = humid.split(Pattern.quote(","));
+                if (humidAtual >= Integer.parseInt(humids[0]) && humidAtual <= Integer.parseInt(humids[1])) {
+                    Log.e("MainActivity", "Tarefa recebida - Contexto de humidade atendido");
+                } else {
+                    Log.e("MainActivity", "Tarefa nao recebida - Contexto de humidade nao atendido");
+                    continue;
+                }
+            }
+
+            if(contexto_selecionado == CONTEXTO_LUGAR){
+                double classe = 0;
+
+                try {
+                    classe = knn(location.getLatitude(), location.getLongitude());
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
 
-                String depart = list.get(i).substring(list.get(i).indexOf("dep=") + 4, list.get(i).lastIndexOf("///t"));
-                if (!depart.equals("")) {
-                    //individualidade
-                    int testDep = 1;//pega do cadastro
-                    int dep = Integer.parseInt(depart);
-                    if (testDep == dep) {
-                        Log.e("MainActivity", "Contexto de individualidade(dep) atendido");
-                    } else {
-                        Log.e("MainActivity", "Tarefa nao recebida - Contexto de individualidade(dep) não foi atendido");
-                        continue;
-                    }
-                }
+                Integer rotulo = retornaRotulo(classe);
+                contexto_selecionado = rotulo;
+            }
 
-               String temp = list.get(i).substring(list.get(i).indexOf("temp=") + 5, list.get(i).indexOf("////c"));
-                    if (!temp.equals("")) {
-
-                        if (mWeather == null) {//erro
-                            Log.e("MainActivity", "Tarefa nao recebida - Contexto de Clima não pôde ser detectado");
-                            continue;
-                        }
-
-                        float tempAtual = mWeather.getTemperature(2);
-                        String temps[] = temp.split(Pattern.quote(","));
-
-                        if (tempAtual >= Integer.parseInt(temps[0]) && tempAtual <= Integer.parseInt(temps[1])) {
-                            Log.e("MainActivity", "Tarefa recebida - Contexto de temperatura atendido");
-
-                            if(Integer.parseInt(temps[0])>=30){
-                                contexto_selecionado=CONTEXTO_TEMP_ALTA;
-                            }
-
-                        } else {
-                            Log.e("MainActivity", "Tarefa nao recebida - Contexto de temperatura nao atendido");
-                            continue;
-                        }
-                    }
-                    String cond = list.get(i).substring(list.get(i).indexOf("cond=") + 5, list.get(i).indexOf("////h"));
-                    if (!cond.equals("")) {
-                        if (mWeather == null) {//erro
-                            Log.e("MainActivity", "Tarefa nao recebida - Contexto de Clima não pôde ser detectado");
-                            continue;
-                        }
-                        //Calculo da condicao climatica
-                        int[] condAtual = mWeather.getConditions();
-                        if (Arrays.asList(condAtual).contains(Integer.parseInt(cond))) {
-                            Log.e("MainActivity", "Tarefa recebida - Contexto de condicao atendido");
-                            if(Integer.parseInt(cond)==Weather.CONDITION_RAINY){
-                                contexto_selecionado = CONTEXTO_CHUVA;
-                            }
-                        } else {
-                            Log.e("MainActivity", "Tarefa nao recebida - Contexto de condicao nao atendido");
-                            continue;
-                        }
-                    }
-                    String humid = list.get(i).substring(list.get(i).indexOf("humid=") + 6, list.get(i).indexOf("*"));
-                    if (!humid.equals("")) {
-                        if (mWeather == null) {//erro
-                            Log.e("MainActivity", "Tarefa nao recebida - Contexto de Clima não pôde ser detectado");
-                            continue;
-                        }
-                        //Calculo da Humidade
-                        int humidAtual = mWeather.getHumidity();
-                        String humids[] = humid.split(Pattern.quote(","));
-                        if (humidAtual >= Integer.parseInt(humids[0]) && humidAtual <= Integer.parseInt(humids[1])) {
-                            Log.e("MainActivity", "Tarefa recebida - Contexto de humidade atendido");
-                        } else {
-                            Log.e("MainActivity", "Tarefa nao recebida - Contexto de humidade nao atendido");
-                            continue;
-                        }
-                    }
-
-                if(contexto_selecionado == CONTEXTO_LUGAR){
-                    double classe = 0;
-
-                    try {
-                        classe = knn(location.getLatitude(), location.getLongitude());
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    Integer rotulo = retornaRotulo(classe);
-                    contexto_selecionado = rotulo;
-                }
-
-                //chegar aqui a tarefa é recebida
-                String id = list.get(i).substring(list.get(i).indexOf("(") + 1, list.get(i).indexOf(")"));
-                String question = list.get(i).substring(list.get(i).indexOf(")") + 1, list.get(i).indexOf("#"));
-                String answer = list.get(i).substring(list.get(i).indexOf("#") + 1, list.get(i).lastIndexOf("#"));
-                if (id != null && id != "")
-                    sendResult(id, question, answer, contexto_selecionado.toString(), Float.toString(distance),horaStr);
+            //chegar aqui a tarefa é recebida
+            String id = list.get(i).substring(list.get(i).indexOf("(") + 1, list.get(i).indexOf(")"));
+            String question = list.get(i).substring(list.get(i).indexOf(")") + 1, list.get(i).indexOf("#"));
+            String answer = list.get(i).substring(list.get(i).indexOf("#") + 1, list.get(i).lastIndexOf("#"));
+            if (id != null && id != "")
+                sendResult(id, question, answer, contexto_selecionado.toString(), Float.toString(distance),horaStr);
 
             /*} else {
                 Log.e("MainActivity", "tarefa não recebida - Contexto de lugar não foi atendido");
@@ -431,7 +431,7 @@ public class ServiceUtil extends Service implements LocationListener {
                         Location location = locationResult.getLocation();
                         Log.i("MainActivity", "Location: " + location.toString());
                     }
-        });
+                });
     }
 
 
