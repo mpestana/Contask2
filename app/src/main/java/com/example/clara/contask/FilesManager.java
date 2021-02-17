@@ -115,11 +115,11 @@ public class FilesManager {
                 FileWriter fileWriter = new FileWriter(file, true);
                 PrintWriter printWriter = new PrintWriter(fileWriter);
 
-                printWriter.println("loc=-13.001261, -38.507341/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(1) Tirar foto de poste próximo ao IME. #1#");
-                printWriter.println("loc=-13.001261, -38.507341/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(2) Tirar foto de um poste aceso próximo ao IME. #1#");
-                printWriter.println("loc=-13.001894, -38.509001/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(3) Classificar a limpeza na Biblioteca Central entre 0-Muito suja a 5-Muito limpa. #1#");
-                printWriter.println("loc=-13.001261, -38.507341/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(4) Indicar se o projetor/datashow do audiotório do IME está funcionando adequadamente. #1#");
-                printWriter.println("loc=-13.002355, -38.508358/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(5) Classificar a qualidade nutritiva de uma refeição do RU entre 0- Pouco nutritiva a 5-Muito nutritiva. #1#");
+//                printWriter.println("loc=-13.001261, -38.507341/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(1) Tirar foto de poste próximo ao IME. #1#");
+   //             printWriter.println("loc=-13.001261, -38.507341/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(2) Tirar foto de um poste aceso próximo ao IME. #1#");
+      //          printWriter.println("loc=-13.001894, -38.509001/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(3) Classificar a limpeza na Biblioteca Central entre 0-Muito suja a 5-Muito limpa. #1#");
+              //  printWriter.println("loc=-13.001261, -38.507341/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(4) Indicar se o projetor/datashow do audiotório do IME está funcionando adequadamente. #1#");
+              //  printWriter.println("loc=-13.002355, -38.508358/hIni=/hFim=//rela=//car=///dep=///temp=////cond=////humid=*1*(5) Classificar a qualidade nutritiva de uma refeição do RU entre 0- Pouco nutritiva a 5-Muito nutritiva. #1#");
 
                 //RU -> -13.002355,-38.508358
                 //IME -> -13.001261,-38.507341
