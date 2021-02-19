@@ -85,7 +85,7 @@ public class LoginActivity  extends AppCompatActivity {
                 main.putExtra("name", content);
                 main.putExtra("surname", "");
                 main.putExtra("imageUrl", "");
-                startService(new Intent(LoginActivity.this, ServiceTask.class));
+                startService(new Intent(LoginActivity.this, ServiceUtil.class));
                 startActivity(main);
             }
         });

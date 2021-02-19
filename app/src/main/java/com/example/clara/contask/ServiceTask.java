@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.clara.contask.interfaces.TarefaI;
 import com.example.clara.contask.model.Tarefa;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +43,13 @@ public class ServiceTask extends Service {
 
     @Override
     public void onCreate() {
-        localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        callAllTasks();
-        super.onCreate();
+        try {
+            this.localBroadcastManager = LocalBroadcastManager.getInstance(this);
+            callAllTasks();
+            super.onCreate();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -63,30 +68,23 @@ public class ServiceTask extends Service {
         localBroadcastManager.sendBroadcast(intent);
     }
 
-    private List<Tarefa> callAllTasks() {
+    private List<Tarefa> callAllTasks() throws IOException {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(ULR).
                 addConverterFactory(GsonConverterFactory.create()).
                 build();
-
         TarefaI api = retrofit.create(TarefaI.class);
         Call<List<Tarefa>> call = api.getTarefas();
-
-        call.enqueue(new Callback<List<Tarefa>>() {
-            @Override
-            public void onResponse(Call<List<Tarefa>> call, Response<List<Tarefa>> response) {
-                allTasks = response.body();
-                for(Tarefa t: allTasks){
+        Response<List<Tarefa>> response = call.execute();
+        if(response.isSuccessful()){
+            this.allTasks = response.body();
+            for(Tarefa t: allTasks){
                     Log.i("MainActivity", t.getTitulo());
                     sendResult(t.getId(), t.getTitulo(), t.getTipo(), "", "", "" );
-                }
-
             }
-
-            @Override
-            public void onFailure(Call<List<Tarefa>> call, Throwable t) {
-                allTasks = new ArrayList<Tarefa>();
-            }
-        });
+        }
+        else{
+            this.allTasks = null;
+        }
         return allTasks;
     }
 
