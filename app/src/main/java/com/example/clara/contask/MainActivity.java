@@ -53,53 +53,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-       /* broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String s = intent.getStringExtra(ServiceUtil.SERVICE_MESSAGE);
-                // do something here.
-                if(s.equals("ask_permission")){
-                    ActivityCompat.requestPermissions(
-                            MainActivity.this,
-                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                            12345
-                    );
-                }
-            }
-        };
-
-        // criação de um arquivo de notificações para testes na UFBA ondina
-        FilesManager mFilesManager = new FilesManager();
-        mFilesManager.createPreFile(this);
-        //////////////////////////////////////////////
-
-        // Arquivo de Log
-        if ( isExternalStorageWritable() ) {
-            File appDirectory = new File(Environment.getExternalStorageDirectory() + "/ContaskLog");
-            File logDirectory = new File(appDirectory + "/log");
-            File logFile = new File(logDirectory, "logcat" + System.currentTimeMillis() + ".txt");
-
-            // create app folder
-            if (!appDirectory.exists()) {
-                appDirectory.mkdir();
-            }
-
-            // create log folder
-            if (!logDirectory.exists()) {
-                logDirectory.mkdir();
-            }
-
-            // clear the previous logcat and then write the new one to the file
-            try {
-                Process process = Runtime.getRuntime().exec("logcat -c");
-                process = Runtime.getRuntime().exec("logcat -f " + logFile + " *:S MainActivity2:D");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.i("MainActivity2", "Error saving log: " + e.toString());
-            }
-        }
-        */
         /****** Facebook Data *********/
         FacebookSdk.sdkInitialize(getApplicationContext());
         Bundle inBundle = getIntent().getExtras();
@@ -192,21 +145,8 @@ public class MainActivity extends AppCompatActivity {
     public void loadScrollActivity(View view){
 
         Intent intent = new Intent(this, SampleCarouselViewActivity.class);
+        startService(new Intent(this, ServiceTask.class));
         startActivity(intent);
     }
-
-    // escutador para localização via GPS (pega as coordenadas geograficas do dispositivo)
- /*   private final LocationListener listener = new LocationListener() {
-        @Override
-        public void onLocationChanged(Location location) {
-
-        }
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {}
-        @Override
-        public void onProviderEnabled(String provider) {}
-        @Override
-        public void onProviderDisabled(String provider) {}
-    };*/
 
 }

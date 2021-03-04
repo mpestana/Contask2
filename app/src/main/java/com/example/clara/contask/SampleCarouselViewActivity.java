@@ -120,7 +120,7 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Integer id = Integer.parseInt(intent.getStringExtra(ServiceUtil.SERVICE_MESSAGE));
+                Integer id = Integer.parseInt(intent.getStringExtra(ServiceTask.SERVICE_MESSAGE));
                 if(id==0){
                     taskQuestion.clear();
                     taskAnswer.clear();
@@ -138,7 +138,9 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                     String distance = intent.getStringExtra("distance");
                     String horaStr = intent.getStringExtra("time");
                     if(context_answer!=null && context_test != null){
-                        contexto_selecionado = Integer.parseInt(context_test);
+                       // contexto_selecionado = Integer.parseInt(context_test);
+                        // Alterar essa linha
+                        contexto_selecionado = 1;
                         answer = Integer.parseInt(context_answer);
                         taskQuestion.add(id + " - " + question);
                         taskAnswer.add(answer);
@@ -162,15 +164,6 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                 }
             }
         };
-
-//        pauseButton = (Button) findViewById(R.id.pauseButton);
-//        pauseButton.setOnClickListener(pauseOnClickListener);
-        //carouselView.setPageCount(sampleImages.length);
-        //customCarouselView.setPageCount(taskIds.size());
-        //customCarouselView.setSlideInterval(4000);
-        //carouselView.setImageListener(imageListener);
-        //customCarouselView.setViewListener(viewListener);
-        //customCarouselView.reSetSlideInterval(0);
     }
 
     private void addScreen() {
@@ -181,7 +174,7 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         LocalBroadcastManager.getInstance(this).registerReceiver((broadcastReceiver),
-                new IntentFilter(ServiceUtil.SERVICE_RESULT));
+                new IntentFilter(ServiceTask.SERVICE_RESULT));
     }
 
     @Override
@@ -189,14 +182,6 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
         super.onStop();
     }
-
-    /* To set simple images
-    ImageListener imageListener = new ImageListener() {
-         @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImages[position]);
-        }
-    };*/
 
     // To set custom views
     ViewListener viewListener = new ViewListener() {
@@ -289,39 +274,5 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
 
         }
     };
-
-    public int changeF(int context){
-        int img_id=0;
-        if(context==ServiceUtil.CONTEXTO_IM)
-            img_id=R.drawable.class_woman;
-        if(context==ServiceUtil.CONTEXTO_BIBLIOTECA)
-            img_id=R.drawable.bib_woman;
-        if(context==ServiceUtil.CONTEXTO_CHUVA)
-            img_id=R.drawable.chuva_woman;
-        if(context==ServiceUtil.CONTEXTO_DIA)
-            img_id=R.drawable.day_woman;
-        if(context==ServiceUtil.CONTEXTO_TEMP_ALTA)
-            img_id=R.drawable.hot_woman;
-        if(context==ServiceUtil.CONTEXTO_NOITE)
-            img_id=R.drawable.noite_woman;
-        return  img_id;
-    }
-
-    public int changeM(int context){
-        int img_id=0;
-        if(context==ServiceUtil.CONTEXTO_IM)
-            img_id=R.drawable.class_man;
-        if(context==ServiceUtil.CONTEXTO_BIBLIOTECA)
-            img_id=R.drawable.bib_man;
-        if(context==ServiceUtil.CONTEXTO_CHUVA)
-            img_id=R.drawable.chuva_man;
-        if(context==ServiceUtil.CONTEXTO_DIA)
-            img_id=R.drawable.day_man;
-        if(context==ServiceUtil.CONTEXTO_TEMP_ALTA)
-            img_id=R.drawable.hot_man;
-        if(context==ServiceUtil.CONTEXTO_NOITE)
-            img_id=R.drawable.noite_man;
-        return  img_id;
-    }
 
  }

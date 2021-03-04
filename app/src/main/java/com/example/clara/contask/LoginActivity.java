@@ -85,7 +85,6 @@ public class LoginActivity  extends AppCompatActivity {
                 main.putExtra("name", content);
                 main.putExtra("surname", "");
                 main.putExtra("imageUrl", "");
-                startService(new Intent(LoginActivity.this, ServiceUtil.class));
                 startActivity(main);
             }
         });
@@ -98,7 +97,6 @@ public class LoginActivity  extends AppCompatActivity {
             main.putExtra("name", profile.getFirstName());
             main.putExtra("surname", profile.getLastName());
             main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
-            startService(new Intent(this, ServiceTask.class));
             startActivity(main);
 
         }
