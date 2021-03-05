@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import com.example.clara.contask.interfaces.TarefaI;
 import com.example.clara.contask.model.Tarefa;
@@ -41,9 +40,14 @@ public class ServiceTask extends Service {
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        callAllTasks();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
     public void onCreate() {
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        callAllTasks();
         super.onCreate();
     }
 
@@ -76,7 +80,7 @@ public class ServiceTask extends Service {
             public void onResponse(Call<List<Tarefa>> call, Response<List<Tarefa>> response) {
                 allTasks = response.body();
                 for(Tarefa t: allTasks){
-                    sendResult(t.getId(), t.getTitulo(), t.getTipo(), "", "", "" );
+                    sendResult(t.getId(), t.getTitulo(), t.getTipo(), t.getId().toString(), "", "" );
                 }
 
             }

@@ -69,10 +69,6 @@ public class LoginActivity  extends AppCompatActivity {
         accessTokenTracker.startTracking();
         profileTracker.startTracking();
 
-        LoginButton loginButton = (LoginButton)findViewById(R.id.login_button);
-
-        loginButton.setReadPermissions("user_friends");
-        loginButton.registerCallback(callbackManager, callback);
 
         Button button= (Button) findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {

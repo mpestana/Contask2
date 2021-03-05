@@ -139,8 +139,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(login);
         finish();
     }
-
-
+    
 
     public void loadScrollActivity(View view){
 
