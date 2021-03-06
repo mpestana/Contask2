@@ -8,10 +8,10 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.example.clara.contask.interfaces.TarefaI;
 import com.example.clara.contask.model.Tarefa;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,9 +79,14 @@ public class ServiceTask extends Service {
             @Override
             public void onResponse(Call<List<Tarefa>> call, Response<List<Tarefa>> response) {
                 allTasks = response.body();
-                for(Tarefa t: allTasks){
+                Intent intent = new Intent(SERVICE_RESULT);
+                localBroadcastManager.sendBroadcast(intent);
+                Gson gson = new Gson();
+                String jsonList = gson.toJson(allTasks);
+                intent.putExtra("allTasks", jsonList);
+              /*  for(Tarefa t: allTasks){
                     sendResult(t.getId(), t.getTitulo(), t.getTipo(), t.getId().toString(), "", "" );
-                }
+                } */
 
             }
 

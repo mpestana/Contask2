@@ -1,16 +1,13 @@
 package com.example.clara.contask;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,36 +17,23 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.example.clara.contask.model.Tarefa;
+import com.google.gson.Gson;
 import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
 import com.synnapps.carouselview.ViewListener;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
 public class SampleCarouselViewActivity extends AppCompatActivity {
 
     private BroadcastReceiver broadcastReceiver;
 
-    CarouselView carouselView;
     CarouselView customCarouselView;
 
-    TextView carouselLabel;
     TextView customCarouselLabel;
     TextView text_wait;
-
-    Button pauseButton;
 
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
     String[] sampleTitles = {"For an application having multiple activities , cant we implement this callback class in the Main Application class so it would know that which activity is currently being created/resumed/stopped etc ? \n", "Grapes \n", "Strawberry \n", "Cherry \n", "Apricot \n"};
@@ -57,6 +41,7 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     List<String> taskQuestion = new ArrayList<String>();
     List<Integer> taskAnswer = new ArrayList<Integer>();
     List<Integer> taskContext = new ArrayList<Integer>();
+    private List<Tarefa> allTasks;
 
     public ImageView mDialog;
     public Integer genderSelected = 0;
@@ -65,109 +50,51 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     public static final Integer MALE = 1;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_scrolling_tasks);
-
-        //carouselView = (CarouselView) findViewById(R.id.carouselView);
-        // carouselLabel = (TextView) findViewById(R.id.carouselLabel);
         customCarouselView = (CarouselView) findViewById(R.id.customCarouselView);
         customCarouselLabel = (TextView) findViewById(R.id.customCarouselLabel);
         text_wait = (TextView) findViewById(R.id.waiting);
 
-        mDialog = (ImageView)findViewById(R.id.your_image);
-        final String[] gender = {""};
-        /*GraphRequest requestMe = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback(){
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        try {
-                            gender[0] = object.getString("gender");
-                            Log.i("MainActivity", "gender:" + gender[0]);
-                            //Log.i("MainActivity", "id:" + object.getString("id"));
-
-                            if(gender[0].equals("male")){
-                                mDialog.setImageResource(R.drawable.man);
-                                genderSelected= MALE;
-                            }
-
-                            else if (gender[0].equals("female")){
-                                mDialog.setImageResource(R.drawable.woman);
-                                genderSelected = FEMALE;
-                            }
-                            else{
-                                mDialog.setImageResource(R.drawable.woman); //se pessoa nao coloca nada no face -> mulher
-                                genderSelected = FEMALE;
-                            }
-
-                        } catch (JSONException e) {
-                            Log.i("MainActivity", "unexpected JSON exception FBGENDER: " + e.toString());
-                           mDialog.setImageResource(R.drawable.man); // se ocorre qualquer problema na requisicao -> homem
-                            genderSelected = MALE;
-                            e.printStackTrace();
-
-                        }
-                    }
-                });
-
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,email,first_name,last_name,gender, birthday");
-        requestMe.setParameters(parameters);
-        requestMe.executeAsync();*/
+        mDialog = (ImageView) findViewById(R.id.your_image);
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Integer id = Integer.parseInt(intent.getStringExtra(ServiceTask.SERVICE_MESSAGE));
-                if(id==0){
-                    taskQuestion.clear();
-                    taskAnswer.clear();
-                    taskContext.clear();
-                    taskIds.clear();
-                }else{
-                    Log.i("TaskTest","Tarefa " + id + " recebida");
-                }
-                if(!taskIds.contains(id)){
-                    Integer contexto_selecionado;
-                    Integer answer;
-                    String context_test = intent.getStringExtra("context");
-                    String question = intent.getStringExtra("question");
-                    String context_answer = intent.getStringExtra("answer");
-                    String distance = intent.getStringExtra("distance");
-                    String horaStr = intent.getStringExtra("time");
-                    if(context_answer!=null && context_test != null){
-                       // contexto_selecionado = Integer.parseInt(context_test);
-                        // Alterar essa linha
-                        contexto_selecionado = 1;
-                        answer = Integer.parseInt(context_answer);
-                        taskQuestion.add(id + " - " + question);
-                        taskAnswer.add(answer);
-                        taskContext.add(contexto_selecionado);
-                        //text_wait.setText(contexto_selecionado.toString());
-                        if(taskIds.isEmpty()){ //primeira vez que encontra
-                            taskIds.add(id); //ve se ta vazia e add, e faz os comandos especificos pra qd ta vazia
-                            customCarouselView.setViewListener(viewListener);
-                            customCarouselView.setPageCount(taskIds.size());
-                            customCarouselView.setSlideInterval(4000);
-                            customCarouselView.reSetSlideInterval(0);
-                            text_wait.setVisibility(View.INVISIBLE);
-                            //Log.i("MainActivity2", "Worker Distance to Task(meters): " + distance);
-                            Log.i("MainActivity2", "Worker Real Time (HHMM): " + horaStr);
-                        }else{
-                            taskIds.add(id); //add e seta numero novo de pagina
-                            customCarouselView.setPageCount(taskIds.size());
-                            Log.i("MainActivity2", "Worker Distance (meters) to Task " + id +  ": " + distance);
+                Gson gson = new Gson();
+                allTasks = Arrays.asList(gson.fromJson(intent.getStringExtra("allTasks"), Tarefa[].class));
+
+                if (allTasks.size() != 0) {
+                    for (Tarefa tarefa : allTasks) {
+                        Integer contexto = Integer.parseInt(tarefa.getId());
+                        String question = tarefa.getTitulo();
+                        Integer answer = Integer.parseInt(tarefa.getTipo());
+                        String distance = "";
+                        String horaStr = "";
+                        if (answer!= null && contexto != null) {
+                            taskQuestion.add(tarefa.getId() + " - " + question);
+                            taskAnswer.add(answer);
+                            taskContext.add(contexto);
+                            if (taskIds.isEmpty()) { //primeira vez que encontra
+                                taskIds.add(Integer.parseInt(tarefa.getId())); //ve se ta vazia e add, e faz os comandos especificos pra qd ta vazio
+                                customCarouselView.setSlideInterval(4000);
+                                customCarouselView.reSetSlideInterval(0);
+                                text_wait.setVisibility(View.INVISIBLE);
+                            } else {
+                                taskIds.add(Integer.parseInt(tarefa.getId())); //add e seta numero novo de pagina
+                                Log.i("MainActivity2", "Worker Distance (meters) to Task " + tarefa.getId() + ": " + distance);
+                            }
                         }
                     }
+
                 }
+                customCarouselView.setViewListener(viewListener);
+                customCarouselView.setPageCount(allTasks.size());
+
             }
         };
-    }
-
-    private void addScreen() {
-
     }
 
     @Override
@@ -191,12 +118,9 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
             View customView = getLayoutInflater().inflate(R.layout.task_view, null);
 
             TextView labelTextView = (TextView) customView.findViewById(R.id.taskText);
-            //ImageView fruitImageView = (ImageView) customView.findViewById(R.id.fruitImageView);
 
-            if(taskIds.get(position)!=null) {
-                //fruitImageView.setImageResource(sampleImages[position]);
+            if (taskIds.get(position) != null) {
                 labelTextView.setText(taskQuestion.get(position));
-//              carouselView.setIndicatorGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
 
                 if (taskAnswer.get(position).equals(2)) {
                     final TextView textSB = (TextView) customView.findViewById(R.id.initialvaluetextID);
@@ -223,7 +147,7 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
 
                 final RadioGroup rb = (RadioGroup) customView.findViewById(R.id.radioSex);
 
-                if(taskAnswer.get(position).equals(1)){
+                if (taskAnswer.get(position).equals(1)) {
                     rb.setVisibility(View.VISIBLE);
                 }
 
@@ -240,23 +164,22 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
 
                             RadioButton selectedRadioButton = (RadioButton) findViewById(selectedRadioButtonID);
                             String selectedRadioButtonText = selectedRadioButton.getText().toString();
+                            Tarefa currentTask = allTasks.get(position);
+                            Log.i("tarefa enviada", currentTask.getTitulo());
+                            // Criar a resposta e enviar abaixo
 
-                            Log.i("MainActivity2", "Acceptance - Task Id: " + taskIds.get(position) +
-                                    " data:" + selectedRadioButtonText);
+
+                            allTasks = allTasks.subList(1, allTasks.size());
+                            taskQuestion = taskQuestion.subList(1, taskQuestion.size());
+                            taskAnswer = taskAnswer.subList(1, taskAnswer.size());
+                            taskContext = taskContext.subList(1, taskContext.size());
+                            taskIds =  taskIds.subList(1, taskIds.size());
+
+                            customView.setVisibility(View.INVISIBLE);
+                            customCarouselView.setCurrentItem(position + 1);
+                            customCarouselView.setPageCount(customCarouselView.getPageCount() - 1 );
+
                         }
-
-                        //get radio button option when click on Radio Button
-                        //create a Logcat info with the PERSON ID, NAME, DISTANCE and TIME
-                        //save Logcat info with Carousel word
-
-                        int id_avatar=0;
-                       if(genderSelected==MALE){
-                         //exp   id_avatar=changeM(taskContext.get(position));
-                       }
-                        if(genderSelected==FEMALE){
-                         //exp   id_avatar=changeF(taskContext.get(position));
-                        }
-                       //exp mDialog.setImageResource(id_avatar);
                     }
                 });
 
@@ -269,10 +192,9 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     View.OnClickListener pauseOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //carouselView.pauseCarousel();
             customCarouselView.reSetSlideInterval(0);
 
         }
     };
 
- }
+}
