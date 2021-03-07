@@ -10,12 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clara.contask.model.Tarefa;
 import com.google.gson.Gson;
@@ -122,33 +124,38 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
             if (taskIds.get(position) != null) {
                 labelTextView.setText(taskQuestion.get(position));
 
-                if (taskAnswer.get(position).equals(2)) {
-                    final TextView textSB = (TextView) customView.findViewById(R.id.initialvaluetextID);
-                    final SeekBar seekBar = (SeekBar) customView.findViewById(R.id.seekBarID);
-                    final RelativeLayout rl = (RelativeLayout) customView.findViewById(R.id.relativeLayoutNivel);
-                    rl.setVisibility(View.VISIBLE);
-                    seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                        @Override
-                        public void onStopTrackingTouch(SeekBar seekBar) {
-                            // TODO Auto-generated method stub
-                        }
-
-                        @Override
-                        public void onStartTrackingTouch(SeekBar seekBar) {
-                            // TODO Auto-generated method stub
-                        }
-
-                        @Override
-                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                            textSB.setText(String.valueOf(progress));
-                        }
-                    });
-                }
+//                if (taskAnswer.get(position).equals(2)) {
+//                    final TextView textSB = (TextView) customView.findViewById(R.id.initialvaluetextID);
+//                    final SeekBar seekBar = (SeekBar) customView.findViewById(R.id.seekBarID);
+//                    final RelativeLayout rl = (RelativeLayout) customView.findViewById(R.id.relativeLayoutNivel);
+//                    rl.setVisibility(View.VISIBLE);
+//                    seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//                        @Override
+//                        public void onStopTrackingTouch(SeekBar seekBar) {
+//                            // TODO Auto-generated method stub
+//                        }
+//
+//                        @Override
+//                        public void onStartTrackingTouch(SeekBar seekBar) {
+//                            // TODO Auto-generated method stub
+//                        }
+//
+//                        @Override
+//                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                            textSB.setText(String.valueOf(progress));
+//                        }
+//                    });
+//                }
 
                 final RadioGroup rb = (RadioGroup) customView.findViewById(R.id.radioSex);
-
-                if (taskAnswer.get(position).equals(1)) {
+                final EditText responseText = (EditText) customView.findViewById(R.id.responseID);
+                if(taskAnswer.get(position).equals(1)) {
                     rb.setVisibility(View.VISIBLE);
+                    responseText.setVisibility(View.INVISIBLE);
+                }
+                else if(taskAnswer.get(position).equals(2)) {
+                    rb.setVisibility(View.INVISIBLE);
+                    responseText.setVisibility(View.VISIBLE);
                 }
 
                 Button sendAnswer = (Button) customView.findViewById(R.id.send_task);
@@ -158,28 +165,39 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         int selectedRadioButtonID = rb.getCheckedRadioButtonId();
+                        Tarefa currentTask = allTasks.get(position);
+
+                        //                            allTasks = allTasks.subList(1, allTasks.size());
+//                            taskQuestion = taskQuestion.subList(1, taskQuestion.size());
+//                            taskAnswer = taskAnswer.subList(1, taskAnswer.size());
+//                            taskContext = taskContext.subList(1, taskContext.size());
+//                            taskIds =  taskIds.subList(1, taskIds.size());
+//
+//                            customView.setVisibility(View.INVISIBLE);
+//                            customCarouselView.setCurrentItem(position + 1);
+//                            customCarouselView.setPageCount(customCarouselView.getPageCount() - 1 );
 
                         // If nothing is selected from Radio Group, then it return -1
-                        if (selectedRadioButtonID != -1) {
+                        if (selectedRadioButtonID != -1 && currentTask.getTipo().equals("1")) {
 
                             RadioButton selectedRadioButton = (RadioButton) findViewById(selectedRadioButtonID);
                             String selectedRadioButtonText = selectedRadioButton.getText().toString();
-                            Tarefa currentTask = allTasks.get(position);
-                            Log.i("tarefa enviada", currentTask.getTitulo());
-                            // Criar a resposta e enviar abaixo
-
-
-                            allTasks = allTasks.subList(1, allTasks.size());
-                            taskQuestion = taskQuestion.subList(1, taskQuestion.size());
-                            taskAnswer = taskAnswer.subList(1, taskAnswer.size());
-                            taskContext = taskContext.subList(1, taskContext.size());
-                            taskIds =  taskIds.subList(1, taskIds.size());
-
-                            customView.setVisibility(View.INVISIBLE);
-                            customCarouselView.setCurrentItem(position + 1);
-                            customCarouselView.setPageCount(customCarouselView.getPageCount() - 1 );
+                            Log.i("PEGAAA",selectedRadioButtonText);
+                            String response = selectedRadioButtonText.equals("Yes") ? "true" : "false";
+                            ServiceTask.enviarContribuicao(currentTask.getId(),
+                                    "BOOLEAN",response,
+                                    "true","1234556");
 
                         }
+                        else if(!responseText.getText().equals("") && currentTask.getTipo()=="2"){
+                            Log.i("tarefa enviada", currentTask.getTitulo());
+                            Log.i("peguei", currentTask.getId());
+                            // Criar a resposta e enviar abaixo
+                            ServiceTask.enviarContribuicao(currentTask.getId(),
+                                    "TEXTO",responseText.getText().toString(),
+                                    "false","1234556");
+                        }
+
                     }
                 });
 

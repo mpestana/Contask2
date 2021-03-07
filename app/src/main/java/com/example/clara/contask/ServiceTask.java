@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.clara.contask.interfaces.TarefaI;
+import com.example.clara.contask.model.ContribuicaoForm;
 import com.example.clara.contask.model.Tarefa;
 import com.google.gson.Gson;
 
@@ -65,6 +68,32 @@ public class ServiceTask extends Service {
             intent.putExtra("time", time);
         }
         localBroadcastManager.sendBroadcast(intent);
+    }
+
+    public static void enviarContribuicao(String tarefaID,String tipoResposta, String contribuicaoTexto,
+                                          String contribuicaoBoolean, String identificacaoUsuario){
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ULR).
+                addConverterFactory(GsonConverterFactory.create()).
+                build();
+        ContribuicaoForm requestBody = new ContribuicaoForm(tarefaID,tipoResposta,contribuicaoTexto,
+                contribuicaoBoolean,identificacaoUsuario);
+        TarefaI api = retrofit.create(TarefaI.class);
+        Call<Void> call = api.sendContribuicao(requestBody);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("REALIZOU COM SUCESSO", "OS NINJA");
+                //Toast.makeText(,"Contribuicao registrada!",Toast.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                //Toast.makeText(null,"Contribuicao falhou!",Toast.LENGTH_SHORT);
+                Log.i("DEU ERRRROOO", "OS NOOB");
+            }
+        });
+
     }
 
     private List<Tarefa> callAllTasks() {
