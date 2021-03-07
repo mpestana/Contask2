@@ -1,6 +1,7 @@
 package com.example.clara.contask;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -24,14 +25,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceTask extends Service {
 
-
-    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 50000;
-    public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 5;
-
     private LocalBroadcastManager localBroadcastManager;
     protected static final String SERVICE_RESULT = "com.service.result";
     protected static final String SERVICE_MESSAGE = "com.service.message";
-
     private  List<Tarefa> allTasks;
     private static final String ULR = "https://floating-taiga-06247.herokuapp.com/api/";
 
@@ -70,8 +66,8 @@ public class ServiceTask extends Service {
         localBroadcastManager.sendBroadcast(intent);
     }
 
-    public static void enviarContribuicao(String tarefaID,String tipoResposta, String contribuicaoTexto,
-                                          String contribuicaoBoolean, String identificacaoUsuario){
+    public static void enviarContribuicao(Context context, String tarefaID, String tipoResposta, String contribuicaoTexto,
+                                             String contribuicaoBoolean, String identificacaoUsuario){
         Retrofit retrofit = new Retrofit.Builder().baseUrl(ULR).
                 addConverterFactory(GsonConverterFactory.create()).
                 build();
@@ -83,17 +79,16 @@ public class ServiceTask extends Service {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.i("REALIZOU COM SUCESSO", "OS NINJA");
-                //Toast.makeText(,"Contribuicao registrada!",Toast.LENGTH_SHORT);
+                Toast.makeText(context, "Contribuição enviado com sucesso!", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                //Toast.makeText(null,"Contribuicao falhou!",Toast.LENGTH_SHORT);
-                Log.i("DEU ERRRROOO", "OS NOOB");
+                Toast.makeText(context, "Ops! ocorreu um erro.", Toast.LENGTH_SHORT).show();
+
             }
         });
-
     }
 
     private List<Tarefa> callAllTasks() {
@@ -113,9 +108,6 @@ public class ServiceTask extends Service {
                 Gson gson = new Gson();
                 String jsonList = gson.toJson(allTasks);
                 intent.putExtra("allTasks", jsonList);
-              /*  for(Tarefa t: allTasks){
-                    sendResult(t.getId(), t.getTitulo(), t.getTipo(), t.getId().toString(), "", "" );
-                } */
 
             }
 
