@@ -13,6 +13,9 @@ import retrofit2.http.Path;
 
 public interface TarefaI {
 
+    @GET("tarefas/{deviceID}")
+    Call<List<Tarefa>> getTarefasByDeviceID(@Path("deviceID") String deviceID);
+
     @GET("tarefas")
     Call<List<Tarefa>> getTarefas();
 

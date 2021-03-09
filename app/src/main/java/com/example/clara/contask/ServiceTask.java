@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class ServiceTask extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        callAllTasks();
+        callAllTasksByDeviceID();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -91,13 +92,15 @@ public class ServiceTask extends Service {
         });
     }
 
-    private List<Tarefa> callAllTasks() {
+    private List<Tarefa> callAllTasksByDeviceID() {
+        String deviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
         Retrofit retrofit = new Retrofit.Builder().baseUrl(ULR).
                 addConverterFactory(GsonConverterFactory.create()).
                 build();
 
         TarefaI api = retrofit.create(TarefaI.class);
-        Call<List<Tarefa>> call = api.getTarefas();
+        Call<List<Tarefa>> call = api.getTarefasByDeviceID(deviceID);
 
         call.enqueue(new Callback<List<Tarefa>>() {
             @Override
