@@ -5,9 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Constak.iml" filepath="$PROJECT_DIR$/.idea/modules/Constak.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Constak.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Constak.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/wekaSTRIPPED/Constak.wekaSTRIPPED.iml" filepath="$PROJECT_DIR$/.idea/modules/wekaSTRIPPED/Constak.wekaSTRIPPED.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Desktop.Constak.iml" filepath="$PROJECT_DIR$/Desktop.Constak.iml" group="Constak" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Constak/app" />
-      <module fileurl="file://$PROJECT_DIR$/wekaSTRIPPED/wekaSTRIPPED.iml" filepath="$PROJECT_DIR$/wekaSTRIPPED/wekaSTRIPPED.iml" group="Constak/wekaSTRIPPED" />
     </modules>
   </component>
 </project>

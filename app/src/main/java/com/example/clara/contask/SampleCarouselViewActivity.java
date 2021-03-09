@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -142,7 +143,8 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                 sendAnswer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        String deviceID = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                                Settings.Secure.ANDROID_ID);
                         int selectedRadioButtonID = rb.getCheckedRadioButtonId();
                         Tarefa currentTask = allTasks.get(position);
 
@@ -165,14 +167,14 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                             String response = selectedRadioButtonText.equals("Yes") ? "true" : "false";
                             ServiceTask.enviarContribuicao(getBaseContext(),currentTask.getId(),
                                     "BOOLEAN",response,
-                                    "true","123");
+                                    "true", deviceID);
 
                         }
                         else if(!responseText.getText().equals("") && currentTask.getTipo().equals("2")){
                             // Criar a resposta e enviar abaixo
                             ServiceTask.enviarContribuicao(getBaseContext() ,currentTask.getId(),
                                     "TEXTO",responseText.getText().toString(),
-                                    "false","123");
+                                    "false", deviceID);
                         }
 
                     }
