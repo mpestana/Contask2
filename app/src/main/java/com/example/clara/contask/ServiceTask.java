@@ -73,7 +73,7 @@ public class ServiceTask extends Service {
                 addConverterFactory(GsonConverterFactory.create()).
                 build();
         ContribuicaoForm requestBody = new ContribuicaoForm(tarefaID,tipoResposta,contribuicaoTexto,
-                contribuicaoBoolean,identificacaoUsuario);
+                contribuicaoBoolean,identificacaoUsuario, "1");
         TarefaI api = retrofit.create(TarefaI.class);
         Call<Void> call = api.sendContribuicao(requestBody);
 

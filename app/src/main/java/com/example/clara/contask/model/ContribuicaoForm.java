@@ -7,14 +7,28 @@ public class ContribuicaoForm {
     private String contribuicaoTexto;
     private String contribuicaoBoolean;
     private String identificacaoUsuario;
+    private String appVersion;
 
     public ContribuicaoForm(String tarefaID, String tipoResposta, String contribuicaoTexto,
-                            String contribuicaoBoolean, String identificacaoUsuario){
+                            String contribuicaoBoolean, String identificacaoUsuario, String appVersion){
         this.tarefaID = tarefaID;
         this.tipoResposta = tipoResposta;
         this.contribuicaoTexto = contribuicaoTexto;
         this.contribuicaoBoolean = contribuicaoBoolean;
         this.identificacaoUsuario = identificacaoUsuario;
+        this.appVersion = appVersion;
+    }
+
+    public void setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+    }
+
+    public String getContribuicaoBoolean() {
+        return contribuicaoBoolean;
+    }
+
+    public String getAppVersion() {
+        return appVersion;
     }
 
     public String getTarefaID() {
