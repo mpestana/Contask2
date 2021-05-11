@@ -148,16 +148,6 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                         int selectedRadioButtonID = rb.getCheckedRadioButtonId();
                         Tarefa currentTask = allTasks.get(position);
 
-                        allTasks =removeAtPosition(position, allTasks);
-                        taskQuestion =removeAtPosition(position, taskQuestion);
-                        taskAnswer =removeAtPosition(position, taskAnswer);
-                        taskContext =removeAtPosition(position, taskContext);
-                        taskIds =removeAtPosition(position, taskIds);
-;
-
-                        customView.setVisibility(View.INVISIBLE);
-                        customCarouselView.setCurrentItem(position + 1);
-                        customCarouselView.setPageCount(customCarouselView.getPageCount() - 1 );
 
                         // If nothing is selected from Radio Group, then it return -1
                         if (selectedRadioButtonID != -1 && currentTask.getTipo().equals("1")) {
@@ -176,6 +166,18 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                                     "TEXTO",responseText.getText().toString(),
                                     "false", deviceID);
                         }
+
+                        allTasks =removeAtPosition(position, allTasks);
+                        taskQuestion =removeAtPosition(position, taskQuestion);
+                        taskAnswer =removeAtPosition(position, taskAnswer);
+                        taskContext =removeAtPosition(position, taskContext);
+                        taskIds =removeAtPosition(position, taskIds);
+;
+
+                        customView.setVisibility(View.INVISIBLE);
+                        customCarouselView.setCurrentItem(position + 1);
+                        customCarouselView.setPageCount(customCarouselView.getPageCount() - 1 );
+
 
                     }
                 });
