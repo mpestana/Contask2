@@ -24,6 +24,9 @@
         <service
             android:name=".ServiceTask">
         </service>
+        <service
+            android:name=".AbelhaService">
+        </service>
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
