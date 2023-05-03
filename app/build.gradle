@@ -5,12 +5,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    compileSdkVersion 26
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "27.1.0"
     defaultConfig {
         applicationId "com.example.clara.contask"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 30
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,6 +25,10 @@ android {
 }
 
 dependencies {
+    //implementation files('src\\main\\java\\lib\\mysql-connector-java-5.1.6-bin.jar')
+    //implementation files('libs\\mysql-connector-java-8.0.25.jar')
+    implementation 'com.android.support:multidex:1.0.3'
+    //implementation files('libs\\mysql-connector-java-5.1.6-bin.jar')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -35,10 +40,10 @@ dependencies {
     compile 'com.google.android.gms:play-services-awareness:9.6.1'
     compile 'com.google.android.gms:play-services-basement:9.6.1'
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
     compile 'com.synnapps:carouselview:0.0.10'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-appindexing:9.6.1'
+    //compile 'com.google.android.gms:play-services-appindexing:9.6.1'
     compile project(':wekaSTRIPPED')
 }

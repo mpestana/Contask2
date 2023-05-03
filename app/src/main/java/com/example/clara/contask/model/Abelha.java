@@ -9,6 +9,10 @@ public class Abelha {
         this.beeNobee = beeNobee;
     }
 
+    public Abelha() {
+
+    }
+
     public String getId() {
         return id;
     }

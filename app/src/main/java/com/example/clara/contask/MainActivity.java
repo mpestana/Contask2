@@ -1,43 +1,39 @@
 package com.example.clara.contask;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
+import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.os.Environment;
 import android.widget.Toast;
 
-import java.io.File;
-import java.lang.Runtime;
-import java.io.IOException;
-
-
-import com.example.clara.contask.model.Tarefa;
-import com.example.clara.contask.interfaces.TarefaI;
+import com.example.clara.contask.model.Abelha;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.awareness.state.Weather;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     public Weather mWeather;
     public Intent main;
     private BroadcastReceiver broadcastReceiver;
+
+    private List<Abelha> abelhasList = new ArrayList<Abelha>();
+    Boolean sem_enxame = true;
 
 
     @Override
@@ -68,12 +67,56 @@ public class MainActivity extends AppCompatActivity {
 
         statusCheck();
 
+        String channelId = "channel-01";
+        String channelName = "Channel Name";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Gson gson = new Gson();
+                if(abelhasList!=null){
+                    abelhasList = Arrays.asList(gson.fromJson(intent.getStringExtra("allAbelhas"), Abelha[].class));
+                    if (abelhasList.size() != 0) {
+                        for (Abelha a : abelhasList) {
+                            if (a.getBeeNobee().equals("0")) {
+                                sem_enxame = false;
+                            }
+                        }
+                        if (!sem_enxame) {
+                            Toast.makeText(getApplicationContext(), "Cuidado! Enxame Detectado!", Toast.LENGTH_SHORT).show();
+
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "channel-01");
+                            builder.setContentTitle("ALERTA");
+                            builder.setContentText("ENXAME DE ABELHAS DETECTADO");
+                            builder.setSmallIcon(R.mipmap.ic_launcher);
+                            builder.setAutoCancel(true);
+
+                            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
+                            managerCompat.notify(1, builder.build());
+                            //showNotification(MainActivity.this , "ALERTA", "ENXAME DE ABELHAS DETECTADO");
+
+                            //criarNotificacaoSimples("Notificacao", "Alerta! Abelhas!");
+                        }
+                    }
+                }
+            }
+        };
     }
 
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if ( Environment.MEDIA_MOUNTED.equals( state ) ) {
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
             return true;
         }
         return false;
@@ -107,7 +150,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        LocalBroadcastManager.getInstance(this).registerReceiver((broadcastReceiver),
+                new IntentFilter(AbelhaService.SERVICE_RESULT));
         super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+        super.onStop();
     }
 
     @Override
@@ -139,13 +190,39 @@ public class MainActivity extends AppCompatActivity {
         startActivity(login);
         finish();
     }
-    
 
-    public void loadScrollActivity(View view){
+
+    public void loadScrollActivity(View view) {
 
         Intent intent = new Intent(this, SampleCarouselViewActivity.class);
         startService(new Intent(this, ServiceTask.class));
         startActivity(intent);
     }
 
+
+
 }
+
+
+
+/*added aqui
+        String records = "", error="";
+        try{
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection connection = DriverManager.getConnection("jdbc:mysql://50.116.88.16:3306", "danjo296_vento", "VdTs@8102");
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM abelha");
+
+            while(resultSet.next()) {
+
+                records += resultSet.getString(1) + " " + resultSet.getString(2) + "\n";
+            }
+         }
+        catch(Exception e)
+        {
+            error = e.toString();
+        }*/

@@ -40,10 +40,10 @@ import java.util.Calendar;
 import java.util.regex.Pattern;
 
 import weka.classifiers.Classifier;
-import weka.core.DenseInstance;
-import weka.core.Instances;
-import weka.core.Instance;
 import weka.classifiers.lazy.IBk;
+import weka.core.DenseInstance;
+import weka.core.Instance;
+import weka.core.Instances;
 
 /**
  * Created by clara on 16/02/2017.

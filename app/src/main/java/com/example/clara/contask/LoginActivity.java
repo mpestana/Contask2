@@ -18,7 +18,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 /**
  * Created by clara on 27/11/2016.
@@ -81,6 +80,7 @@ public class LoginActivity  extends AppCompatActivity {
                 main.putExtra("name", content);
                 main.putExtra("surname", "");
                 main.putExtra("imageUrl", "");
+                startService(new Intent(LoginActivity.this, AbelhaService.class));
                 startActivity(main);
             }
         });
