@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Constak.iml" filepath="$PROJECT_DIR$/.idea/modules/Constak.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Constak.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Constak.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Constak.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Constak.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Constak.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Constak.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Constak.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Constak.app.unitTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wekaSTRIPPED/Constak.wekaSTRIPPED.iml" filepath="$PROJECT_DIR$/.idea/modules/wekaSTRIPPED/Constak.wekaSTRIPPED.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Contask.iml" filepath="$PROJECT_DIR$/.idea/modules/Contask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Contask.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Contask.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Contask.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Contask.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Contask.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Contask.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Contask.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Contask.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wekaSTRIPPED/Contask.wekaSTRIPPED.iml" filepath="$PROJECT_DIR$/.idea/modules/wekaSTRIPPED/Contask.wekaSTRIPPED.iml" />
     </modules>
   </component>
 </project>

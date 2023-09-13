@@ -1,14 +1,13 @@
 package com.example.clara.contask;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.clara.contask.model.Tarefa;
 import com.google.gson.Gson;
@@ -28,7 +24,6 @@ import com.synnapps.carouselview.ViewListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class SampleCarouselViewActivity extends AppCompatActivity {
@@ -69,8 +64,20 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Gson gson = new Gson();
-                allTasks = Arrays.asList(gson.fromJson(intent.getStringExtra("allTasks"), Tarefa[].class));
+                allTasks= new ArrayList<>();
+                Tarefa[] listTasks= gson.fromJson(intent.getStringExtra("allTasks"), Tarefa[].class);
+                if(listTasks!=null){
+                    allTasks = Arrays.asList(listTasks);
+                }
+                if (allTasks.size() == 0) {
+                    for (int i = 0; i <3 ; i++) {
+                        Tarefa newTarefa= new Tarefa(Integer.toString(i), "teste", "teste",
+                                "teste", "teste", "teste", "teste", "teste",
+                                "teste", "teste", "teste", "teste", "0");
+                        allTasks.add(newTarefa);
+                    }
 
+                }
                 if (allTasks.size() != 0) {
                     for (Tarefa tarefa : allTasks) {
                         Integer contexto = Integer.parseInt(tarefa.getId());
@@ -95,8 +102,9 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                     }
 
                 }
+
                 customCarouselView.setViewListener(viewListener);
-                customCarouselView.setPageCount(allTasks.size());
+                customCarouselView.setPageCount(3);
 
             }
         };
@@ -172,7 +180,7 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
                         taskAnswer =removeAtPosition(position, taskAnswer);
                         taskContext =removeAtPosition(position, taskContext);
                         taskIds =removeAtPosition(position, taskIds);
-;
+                        ;
 
                         customView.setVisibility(View.INVISIBLE);
                         customCarouselView.setCurrentItem(position + 1);

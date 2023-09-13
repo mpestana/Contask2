@@ -1,20 +1,14 @@
 package com.example.clara.contask;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.provider.Settings;
-import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
-import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.clara.contask.interfaces.AbelhaI;
-import com.example.clara.contask.interfaces.TarefaI;
 import com.example.clara.contask.model.Abelha;
-import com.example.clara.contask.model.ContribuicaoForm;
-import com.example.clara.contask.model.Tarefa;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
