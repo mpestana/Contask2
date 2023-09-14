@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation = findViewById(R.id.bottomNavigationView);
         bottomNavigation.setOnNavigationItemSelectedListener(navListener);
 
+        //tela inicial
         startService(new Intent(this, ServiceTask.class));
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SampleCarouselViewFragment()).commit();
 
@@ -140,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
 
                     } else if (menuItem.getItemId()==R.id.settings) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SettingsFragment()).commit();
+
+                    }
+                    else if (menuItem.getItemId()==R.id.chat) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new ChatsFragment()).commit();
 
                     }
 

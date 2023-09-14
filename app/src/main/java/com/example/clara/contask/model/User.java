@@ -1,12 +1,15 @@
 package com.example.clara.contask.model;
 
 public class User {
-    private final String userId;
+    private String userId;
 
-    private final String userName;
+    private String userName;
 
-    private final String userPhotoUrl;
+    private String userPhotoUrl;
 
+    public User() {
+
+    }
 
     public User(String userId, String userName, String userPhotoUrl) {
         this.userId = userId;

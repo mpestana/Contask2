@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search" />
     <item
+        android:id="@+id/tasks"
+        android:icon="@drawable/ic_task"
+        android:title="@string/tasks"/>
+    <item
         android:id="@+id/campaigns"
         android:icon="@drawable/ic_campaigns"
         android:title="@string/campaigns" />

@@ -52,4 +52,7 @@
     <string name="hint_email">Digite seu email</string>
     <string name="hint_password">Digite sua senha</string>
     <string name="hint_password_confirm">Digite sua senha novamente</string>
+    <string name="tasks">Tarefas</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="type_message">Digite sua mensagem</string>
 </resources>
