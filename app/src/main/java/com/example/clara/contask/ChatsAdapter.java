@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.clara.contask.model.User;
+
+import com.example.clara.contask.model.Chat;
+import com.example.clara.contask.model.Message;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,10 +25,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder> {
     private final MainActivity mainActivity;
-    private ArrayList <User> users;
-    public ChatsAdapter(ArrayList<User> users, MainActivity mainActivity) {
-        this.users=users;
+    private ArrayList <Chat> chats;
+    public ChatsAdapter(ArrayList<Chat> chats, MainActivity mainActivity) {
+
+        this.chats=chats;
         this.mainActivity=mainActivity;
+
     }
 
 
@@ -39,14 +44,16 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        User user = users.get(position);
-        holder.textViewName.setText(user.getUserName());
-        holder.bind(user);
+        position=holder.getAdapterPosition();
+        Chat chat = chats.get(position);
+        holder.textViewName.setText(chat.getNameChat());
+        holder.bind(chat);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(position);
+
                 Intent intent = new Intent(mainActivity,ChatActivity.class);
+                intent.putExtra("chatId",chat.getChatId());
                 mainActivity.startActivity(intent);
             }
         });
@@ -54,22 +61,33 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return chats.size();
     }
     class ChatViewHolder extends RecyclerView.ViewHolder{
         TextView textViewName;
+        TextView textViewLastMessage;
+        TextView textViewTimeLastMessage;
         CircleImageView photo;
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewName= itemView.findViewById(R.id.textViewChatName);
             photo= itemView.findViewById(R.id.photoChat);
+            textViewLastMessage= itemView.findViewById(R.id.textViewLastMessage);
+            textViewTimeLastMessage= itemView.findViewById(R.id.textViewTimeMessage);
         }
 
-        public void bind(User user) {
-            textViewName.setText(FunctionsUtil.getFirstAndLastName(user.getUserName()));
+        public void bind(Chat chat) {
+            Message lastMessage= chat.getMessages().get(chat.getMessages().size()-1);
+            String userNameLastMessage=FunctionsUtil.getFirstAndLastName(lastMessage.getUser().getUserName());
+            String textLastMessage= lastMessage.getTextMessage();
 
-            Picasso.get().load(user.getUserPhotoUrl()).into(photo);
 
+            textViewName.setText(chat.getNameChat());
+            textViewLastMessage.setText(userNameLastMessage+": "+textLastMessage);
+            textViewTimeLastMessage.setText(lastMessage.getHourMessage()+ " • "+ lastMessage.getDateMessage());
+
+            Picasso.get().load(chat.getChatPhotoUrl()).into(photo);
+            System.out.println(System.currentTimeMillis());
 
 
         }

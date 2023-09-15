@@ -93,9 +93,9 @@ public class RegisterActivity extends AppCompatActivity {
                                                     Log.i("Url photo", uri.toString());
                                                     String id = FirebaseAuth.getInstance().getUid();
                                                     User user = new User(id, name, uri.toString());
-                                                    FirebaseFirestore.getInstance().collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                    FirebaseFirestore.getInstance().collection("users").document(id).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
-                                                        public void onSuccess(DocumentReference documentReference) {
+                                                        public void onSuccess(Void unused) {
                                                             Intent main = new Intent(RegisterActivity.this, MainActivity.class);
                                                             main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 

@@ -1,9 +1,10 @@
 package com.example.clara.contask;
 
-import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,35 +15,40 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private ArrayList <Message> messages;
+    private List<Message> messages;
 
 
-    String idUser;
-    public MessageAdapter(ArrayList<Message> messages) {
-        this.messages=messages;
+    private String idUser;
 
-        this.idUser=FirebaseAuth.getInstance().getUid();
+    public void addItem(List<Message> newMessages) {
+        List<Message> newList = new ArrayList<>();
+        newList.addAll(newMessages);
+        messages.clear();
+        notifyDataSetChanged();
+        messages.addAll(newMessages);
+        notifyDataSetChanged();
+
     }
-    int currentMessage=0;
+
+    public MessageAdapter(ArrayList<Message> messages) {
+        this.messages = messages;
+        this.idUser = FirebaseAuth.getInstance().getUid();
+
+    }
+
 
     @NonNull
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Message message = messages.get(currentMessage);
         View view;
-        if(message.getUserId().equals(idUser)){
-             view =LayoutInflater.from(parent.getContext()).inflate(R.layout.item_me_message,parent,false);
-        }
-        else{
-            view =LayoutInflater.from(parent.getContext()).inflate(R.layout.item_from_message,parent,false);
-        }
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
         MessageViewHolder holder = new MessageViewHolder(view);
-        currentMessage++;
         return holder;
     }
 
@@ -51,7 +57,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         Message message = messages.get(position);
 
-
+        Log.i("add msg 2", String.valueOf(getItemCount()));
+        Log.i("msg", String.valueOf(position));
         holder.bind(message);
 
     }
@@ -60,19 +67,48 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public int getItemCount() {
         return messages.size();
     }
-    class MessageViewHolder extends RecyclerView.ViewHolder{
+
+    class MessageViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName;
+        TextView textViewTextMessage;
         CircleImageView photo;
+
+        LinearLayout linearLayout;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
         public void bind(Message message) {
-//            textViewName.setText(FunctionsUtil.getFirstAndLastName(message.getUserName()));
-//
-//            Picasso.get().load(user.getUserPhotoUrl()).into(photo);
 
+
+            if (message.getUser().getUserId().equals(idUser)) {//mine
+                itemView.findViewById(R.id.textViewTextMessageSystem).setVisibility(View.GONE);
+                itemView.findViewById(R.id.layoutMessageOther).setVisibility(View.GONE);
+
+                textViewTextMessage = itemView.findViewById(R.id.textViewTextMessageMine);
+                textViewName = itemView.findViewById(R.id.messageUserNameMine);
+                textViewName.setText("Você" + " • " + message.getHourMessage() + " • " + message.getDateMessage());
+
+            } else if (message.getUser().getUserId().equals("0")) {//System
+                itemView.findViewById(R.id.layoutMessageMine).setVisibility(View.GONE);
+                itemView.findViewById(R.id.layoutMessageOther).setVisibility(View.GONE);
+
+                textViewTextMessage = itemView.findViewById(R.id.textViewTextMessageSystem);
+
+            } else {//other
+                itemView.findViewById(R.id.textViewTextMessageSystem).setVisibility(View.GONE);
+                itemView.findViewById(R.id.layoutMessageMine).setVisibility(View.GONE);
+
+
+                textViewTextMessage = itemView.findViewById(R.id.textViewTextMessageOther);
+                textViewName = itemView.findViewById(R.id.messageUserNameOther);
+                photo = itemView.findViewById(R.id.photoChat);
+                textViewName.setText(FunctionsUtil.getFirstAndLastName(message.getUser().getUserName()) + " • " + message.getHourMessage() + " • " + message.getDateMessage());
+                Picasso.get().load(message.getUser().getUserPhotoUrl()).into(photo);
+            }
+
+            textViewTextMessage.setText(message.getTextMessage());
 
 
         }

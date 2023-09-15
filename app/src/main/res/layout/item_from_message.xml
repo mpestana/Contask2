@@ -32,7 +32,7 @@
 
         </TextView>
         <TextView
-            android:id="@+id/textViewChatName"
+            android:id="@+id/textViewTextMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"

@@ -20,6 +20,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/chatPhotoTitle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+
+            >
+
+        </de.hdodenhof.circleimageview.CircleImageView>
         <TextView
             android:id="@+id/chatName"
             android:layout_width="match_parent"
