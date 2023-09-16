@@ -36,44 +36,35 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MutableLiveData<Chat> chatMutableLiveData = new MutableLiveData<Chat>(null);
     private MutableLiveData<ArrayList<Message>> messagesWithUser = new MutableLiveData<ArrayList<Message>>(new ArrayList<Message>());
-
-
-    private ArrayList<Message> messages;
     private EditText editChat;
     private CircleImageView btnChat;
-
-
-
-    MessageAdapter messagesAdapter;
+    private MessageAdapter messagesAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        messages = new ArrayList<Message>();
         editChat = findViewById(R.id.edit_chat);
         btnChat = findViewById(R.id.btnChat);
 
         String chatId = getIntent().getExtras().getString("chatId", null);
 
-
+        // getting current chat
         FirebaseFirestore.getInstance().document("/chats/" + chatId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (error != null) {
                     Log.e("error", error.getMessage(), error);
                 }
-
                 Chat chat = value.toObject(Chat.class);
-                Log.i("ochat", String.valueOf(chat));
                 chat.setChatId(value.getId());
-
                 chatMutableLiveData.setValue(chat);
             }
         });
 
 
+        // when get chat, set users in messages
         chatMutableLiveData.observe(this, new Observer<Chat>() {
             @Override
             public void onChanged(Chat chat) {
@@ -85,23 +76,19 @@ public class ChatActivity extends AppCompatActivity {
 
 
                     List<Message> messages = chat.getMessages();
-
+                    ArrayList<Message> messagesWithUserTemp = new ArrayList<>();
                     for (int i = 0; i < messages.size(); i++) {//para cada mensagem busca o user
                         int finalI = i;
 
                         Message mensage = messages.get(finalI);
                         String path = mensage.getUserMessage().getPath();
+
                         FirebaseFirestore.getInstance().document(path).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-
                                 mensage.setUser(value.toObject(User.class));
-
-
-                                ArrayList<Message> auxMensageArray = messagesWithUser.getValue();
-                                auxMensageArray.add(mensage);
-                                messagesWithUser.setValue(auxMensageArray);
+                                messagesWithUserTemp.add(mensage);
+                                messagesWithUser.setValue(messagesWithUserTemp);
                             }
                         });
                     }
@@ -109,32 +96,38 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        //when set users, add on recycler view
         messagesWithUser.observe(this, new Observer<ArrayList<Message>>() {
             @Override
             public void onChanged(ArrayList<Message> messagesUsers) {
-                if (chatMutableLiveData.getValue() != null && messagesUsers != null && messagesUsers.size() == chatMutableLiveData.getValue().getMessages().size()) {
-                    if (messagesAdapter != null) {
-                        messagesAdapter.addItem(messagesUsers);
+                if (chatMutableLiveData.getValue() != null && messagesUsers != null && messagesUsers.size() == chatMutableLiveData.getValue().getMessages().size() ) {
+                    Message lastMessageChat=chatMutableLiveData.getValue().getMessages().get(chatMutableLiveData.getValue().getMessages().size()-1);
+                    Message lastMessageWithUser= messagesUsers.get(messagesUsers.size()-1);
 
-                    } else if (messagesAdapter == null) {
+                    if(lastMessageChat.getTimeMessage()==lastMessageWithUser.getTimeMessage()){
+                        if (messagesAdapter != null) {
+                            messagesAdapter.addItem((List<Message>) messagesUsers.clone());
 
-                        recyclerView = findViewById(R.id.recycler_chat);
-                        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-                        llm.setOrientation(LinearLayoutManager.VERTICAL);
-                        recyclerView.setLayoutManager(llm);
-                        messagesAdapter = new MessageAdapter(messagesUsers);
-                        recyclerView.setAdapter(messagesAdapter);
+                        } else if (messagesAdapter == null) {
+
+                            recyclerView = findViewById(R.id.recycler_chat);
+                            LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+                            llm.setOrientation(LinearLayoutManager.VERTICAL);
+                            recyclerView.setLayoutManager(llm);
+                            messagesAdapter = new MessageAdapter((ArrayList<Message>) messagesUsers.clone());
+                            recyclerView.setAdapter(messagesAdapter);
+                        }
                     }
+
                 }
             }
         });
 
+
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String text = editChat.getText().toString();
-
                 if (text != null && !text.isEmpty()) {
                     String userId = FirebaseAuth.getInstance().getUid();
                     long time = System.currentTimeMillis();

@@ -12,6 +12,7 @@
             android:id="@+id/layoutMessageMine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/messageUserNameMine"
@@ -19,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:text="Você • 01/01/22 • 9:07"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/black"
                 android:layout_gravity="right"
                 >
 
@@ -30,43 +31,32 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
                 android:layout_gravity="right"
-
-
                 android:background="@drawable/message_me"
                 android:textColor="@color/white"
                 android:text="Texto "
                 android:textSize="@dimen/text_medium"
-
-
                 >
 
             </TextView>
         </LinearLayout>
 
 
-
-
-
-        <TextView
-            android:id="@+id/textViewTextMessageSystem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-
-
-            android:background="@drawable/message_system"
-            android:text="Texto "
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_large"
-            android:textStyle="bold"
-
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </TextView>
+    <TextView
+        android:id="@+id/textViewTextMessageSystem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/message_system"
+        android:text="Texto "
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </TextView>
 
 
 
@@ -77,8 +67,7 @@
             android:id="@+id/layoutMessageOther"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-
+            android:layout_marginTop="20dp"
             >
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/photoChat"
@@ -101,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:text="Usuario Teste • 01/01/22 • 9:07"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/black"
                     >
 
                 </TextView>
@@ -120,8 +109,6 @@
 
                 </TextView>
             </LinearLayout>
-
-
         </LinearLayout>
 
 </LinearLayout>

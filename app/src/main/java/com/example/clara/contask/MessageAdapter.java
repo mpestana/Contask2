@@ -8,10 +8,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clara.contask.model.Message;
+import com.example.clara.contask.model.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,11 +33,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private String idUser;
 
     public void addItem(List<Message> newMessages) {
-        List<Message> newList = new ArrayList<>();
-        newList.addAll(newMessages);
-        messages.clear();
+       this.messages.clear();
         notifyDataSetChanged();
-        messages.addAll(newMessages);
+        this.messages.addAll(newMessages);
         notifyDataSetChanged();
 
     }
@@ -39,8 +43,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public MessageAdapter(ArrayList<Message> messages) {
         this.messages = messages;
         this.idUser = FirebaseAuth.getInstance().getUid();
-
     }
+
 
 
     @NonNull
@@ -54,62 +58,67 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
-
         Message message = messages.get(position);
-
-        Log.i("add msg 2", String.valueOf(getItemCount()));
-        Log.i("msg", String.valueOf(position));
         holder.bind(message);
 
     }
 
     @Override
     public int getItemCount() {
-        return messages.size();
+        return this.messages.size();
     }
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewName;
-        TextView textViewTextMessage;
+        TextView textViewNameMine;
+        TextView textViewNameOther;
+        TextView textViewTextMessageMine;
+        TextView textViewTextMessageOther;
         CircleImageView photo;
+        LinearLayout layoutOther;
+        LinearLayout layoutMine;
 
-        LinearLayout linearLayout;
+        TextView layoutSytem;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
+            layoutMine=itemView.findViewById(R.id.layoutMessageMine);
+            layoutOther=itemView.findViewById(R.id.layoutMessageOther);
+            layoutSytem=itemView.findViewById(R.id.textViewTextMessageSystem);
+            textViewTextMessageMine = itemView.findViewById(R.id.textViewTextMessageMine);
+            textViewNameMine = itemView.findViewById(R.id.messageUserNameMine);
+            textViewTextMessageOther = itemView.findViewById(R.id.textViewTextMessageOther);
+            textViewNameOther = itemView.findViewById(R.id.messageUserNameOther);
+            photo = itemView.findViewById(R.id.photoChat);
         }
 
         public void bind(Message message) {
 
 
             if (message.getUser().getUserId().equals(idUser)) {//mine
-                itemView.findViewById(R.id.textViewTextMessageSystem).setVisibility(View.GONE);
-                itemView.findViewById(R.id.layoutMessageOther).setVisibility(View.GONE);
+                layoutSytem.setVisibility(View.GONE);
+                layoutOther.setVisibility(View.GONE);
+                layoutMine.setVisibility(View.VISIBLE);
 
-                textViewTextMessage = itemView.findViewById(R.id.textViewTextMessageMine);
-                textViewName = itemView.findViewById(R.id.messageUserNameMine);
-                textViewName.setText("Você" + " • " + message.getHourMessage() + " • " + message.getDateMessage());
+                textViewNameMine.setText("Você" + " • " + message.getHourMessage() + " • " + message.getDateMessage());
+                textViewTextMessageMine.setText(message.getTextMessage());
 
             } else if (message.getUser().getUserId().equals("0")) {//System
-                itemView.findViewById(R.id.layoutMessageMine).setVisibility(View.GONE);
-                itemView.findViewById(R.id.layoutMessageOther).setVisibility(View.GONE);
+                layoutMine.setVisibility(View.GONE);
+                layoutOther.setVisibility(View.GONE);
+                layoutSytem.setVisibility(View.VISIBLE);
 
-                textViewTextMessage = itemView.findViewById(R.id.textViewTextMessageSystem);
-
+                layoutSytem = itemView.findViewById(R.id.textViewTextMessageSystem);
+                   layoutSytem.setText(message.getTextMessage());
             } else {//other
-                itemView.findViewById(R.id.textViewTextMessageSystem).setVisibility(View.GONE);
-                itemView.findViewById(R.id.layoutMessageMine).setVisibility(View.GONE);
+                layoutSytem.setVisibility(View.GONE);
+                layoutMine.setVisibility(View.GONE);
+                layoutOther.setVisibility(View.VISIBLE);
 
 
-                textViewTextMessage = itemView.findViewById(R.id.textViewTextMessageOther);
-                textViewName = itemView.findViewById(R.id.messageUserNameOther);
-                photo = itemView.findViewById(R.id.photoChat);
-                textViewName.setText(FunctionsUtil.getFirstAndLastName(message.getUser().getUserName()) + " • " + message.getHourMessage() + " • " + message.getDateMessage());
+                textViewTextMessageOther.setText(message.getTextMessage());
+                textViewNameOther.setText(FunctionsUtil.getFirstAndLastName(message.getUser().getUserName()) + " • " + message.getHourMessage() + " • " + message.getDateMessage());
                 Picasso.get().load(message.getUser().getUserPhotoUrl()).into(photo);
             }
-
-            textViewTextMessage.setText(message.getTextMessage());
-
 
         }
     }

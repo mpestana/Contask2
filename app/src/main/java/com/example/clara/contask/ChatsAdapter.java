@@ -20,12 +20,21 @@ import com.example.clara.contask.model.Message;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder> {
     private final MainActivity mainActivity;
     private ArrayList <Chat> chats;
+
+    public void redraw(ArrayList<Chat> chatsNew) {
+        this.chats.clear();
+        notifyDataSetChanged();
+        this.chats.addAll(chatsNew);
+        notifyDataSetChanged();
+
+    }
     public ChatsAdapter(ArrayList<Chat> chats, MainActivity mainActivity) {
 
         this.chats=chats;
@@ -80,12 +89,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             Message lastMessage= chat.getMessages().get(chat.getMessages().size()-1);
             String userNameLastMessage=FunctionsUtil.getFirstAndLastName(lastMessage.getUser().getUserName());
             String textLastMessage= lastMessage.getTextMessage();
-
-
             textViewName.setText(chat.getNameChat());
             textViewLastMessage.setText(userNameLastMessage+": "+textLastMessage);
             textViewTimeLastMessage.setText(lastMessage.getHourMessage()+ " • "+ lastMessage.getDateMessage());
-
             Picasso.get().load(chat.getChatPhotoUrl()).into(photo);
             System.out.println(System.currentTimeMillis());
 
