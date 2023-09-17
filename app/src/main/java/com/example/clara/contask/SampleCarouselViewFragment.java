@@ -42,8 +42,6 @@ public class SampleCarouselViewFragment extends Fragment {
     TextView customCarouselLabel;
     TextView text_wait;
 
-    int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
-    String[] sampleTitles = {"For an application having multiple activities , cant we implement this callback class in the Main Application class so it would know that which activity is currently being created/resumed/stopped etc ? \n", "Grapes \n", "Strawberry \n", "Cherry \n", "Apricot \n"};
     List<Integer> taskIds = new ArrayList<Integer>();
     List<String> taskQuestion = new ArrayList<String>();
     List<Integer> taskAnswer = new ArrayList<Integer>();

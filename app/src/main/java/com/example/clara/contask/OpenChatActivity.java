@@ -31,7 +31,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatActivity extends AppCompatActivity {
+public class OpenChatActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MutableLiveData<Chat> chatMutableLiveData = new MutableLiveData<Chat>(null);
@@ -107,6 +107,7 @@ public class ChatActivity extends AppCompatActivity {
                     if(lastMessageChat.getTimeMessage()==lastMessageWithUser.getTimeMessage()){
                         if (messagesAdapter != null) {
                             messagesAdapter.addItem((List<Message>) messagesUsers.clone());
+                            recyclerView.scrollToPosition(messagesUsers.size()-1);
 
                         } else if (messagesAdapter == null) {
 
@@ -116,6 +117,8 @@ public class ChatActivity extends AppCompatActivity {
                             recyclerView.setLayoutManager(llm);
                             messagesAdapter = new MessageAdapter((ArrayList<Message>) messagesUsers.clone());
                             recyclerView.setAdapter(messagesAdapter);
+                            recyclerView.scrollToPosition(messagesUsers.size()-1);
+
                         }
                     }
 

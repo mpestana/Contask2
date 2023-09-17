@@ -41,8 +41,12 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_medium"
+            android:textColor="@color/colorPrimaryDark"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="1"
             android:textStyle="bold"
             android:text="@string/login" />
 
@@ -52,7 +56,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:background="@drawable/edit_text_style"
-            android:elevation="8dp"
+            android:elevation="5dp"
             android:hint="@string/hint_email"
             android:layout_column="1"
             android:layout_row="1"
@@ -80,8 +84,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_medium"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="1"
             android:text="@string/password" />
 
         <EditText
@@ -90,7 +98,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:background="@drawable/edit_text_style"
-            android:elevation="10dp"
+            android:elevation="5dp"
             android:hint="@string/hint_password"
             android:layout_column="1"
             android:layout_row="1"
@@ -113,7 +121,7 @@
         android:background="@drawable/button"
         android:textColor="@color/white"
         android:textSize="20dp"
-
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <TextView
@@ -123,9 +131,13 @@
         android:layout_marginTop="16dp"
         android:text="@string/register"
         android:textAlignment="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/text_medium"
         android:textStyle="bold"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />

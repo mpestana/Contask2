@@ -59,23 +59,39 @@ public class RegisterActivity extends AppCompatActivity {
         editTextLogin = (EditText) findViewById(R.id.editTextEmailAddress);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextPasswordConfirm = (EditText) findViewById(R.id.editTextPasswordConfirm);
+
+        clickRegister();
+        buttonPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, 0);
+            }
+
+        });
+
+
+    }
+
+    private void clickRegister() {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //EditText edit = (EditText)findViewById(R.id.editText);
-                //String content = edit.getText().toString();
-
-
                 String name = editTextName.getText().toString();
                 String login = editTextLogin.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String passwordConfirm = editTextPasswordConfirm.getText().toString();
 
-                if (selectedPhoto == null || name == null || login == null || password == null || passwordConfirm == null || name.isEmpty() || login.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()) {
+                if (selectedPhoto == null || name == null || login == null || password == null
+                        || passwordConfirm == null || name.isEmpty() || login.isEmpty()
+                        || password.isEmpty() || passwordConfirm.isEmpty()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.check_fields), Toast.LENGTH_SHORT).show();
-                } else if (!password.equals(passwordConfirm)) {
+                }
+                else if (!password.equals(passwordConfirm)) {
                     Toast.makeText(getApplicationContext(), getString(R.string.password_diferent), Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else {
                     FirebaseAuth.getInstance().createUserWithEmailAndPassword(login, password)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
@@ -138,17 +154,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-        buttonPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 0);
-            }
-
-        });
-
-
     }
 
     @Override

@@ -53,7 +53,11 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:text="@string/name"
-               android:textColor="@color/colorPrimary"
+               android:textColor="@color/colorPrimaryDark"
+               android:shadowColor="@color/colorAccent"
+               android:shadowDx="0"
+               android:shadowDy="0"
+               android:shadowRadius="1"
                android:textSize="@dimen/text_medium"
                android:textStyle="bold" />
 
@@ -66,7 +70,7 @@
                android:layout_margin="10dp"
                android:background="@drawable/edit_text_style"
 
-               android:elevation="6dp"
+               android:elevation="5dp"
                android:ems="10"
                android:hint="@string/hint_name"
                android:inputType="textEmailAddress"
@@ -91,7 +95,11 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:text="@string/login"
-               android:textColor="@color/colorPrimary"
+               android:textColor="@color/colorPrimaryDark"
+               android:shadowColor="@color/colorAccent"
+               android:shadowDx="0"
+               android:shadowDy="0"
+               android:shadowRadius="1"
                android:textSize="@dimen/text_medium"
                android:textStyle="bold" />
 
@@ -104,7 +112,7 @@
                android:layout_margin="10dp"
                android:background="@drawable/edit_text_style"
 
-               android:elevation="6dp"
+               android:elevation="5dp"
                android:ems="10"
                android:hint="@string/hint_email"
                android:inputType="textEmailAddress"
@@ -130,7 +138,11 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:textSize="@dimen/text_medium"
-               android:textColor="@color/colorPrimary"
+               android:textColor="@color/colorPrimaryDark"
+               android:shadowColor="@color/colorAccent"
+               android:shadowDx="0"
+               android:shadowDy="0"
+               android:shadowRadius="1"
                android:textStyle="bold"
                android:text="@string/password" />
 
@@ -140,7 +152,7 @@
                android:layout_height="wrap_content"
                android:textColor="@color/black"
                android:background="@drawable/edit_text_style"
-               android:elevation="6dp"
+               android:elevation="5dp"
                android:hint="@string/hint_password"
 
                android:layout_column="1"
@@ -154,8 +166,12 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:textSize="@dimen/text_small"
-               android:layout_marginLeft="15dp"
-               android:textColor="@color/colorAccent"
+               android:layout_marginLeft="30dp"
+               android:textColor="@color/colorPurple"
+               android:shadowColor="@color/colorAccent"
+               android:shadowDx="0"
+               android:shadowDy="0"
+               android:shadowRadius="1"
                android:textStyle="bold"
                android:text="@string/password_message" />
 
@@ -178,7 +194,11 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:textSize="@dimen/text_medium"
-               android:textColor="@color/colorPrimary"
+               android:textColor="@color/colorPrimaryDark"
+               android:shadowColor="@color/colorAccent"
+               android:shadowDx="0"
+               android:shadowDy="0"
+               android:shadowRadius="1"
                android:textStyle="bold"
                android:text="@string/password_confirm" />
 
@@ -188,7 +208,7 @@
                android:layout_height="wrap_content"
                android:textColor="@color/black"
                android:background="@drawable/edit_text_style"
-               android:elevation="6dp"
+               android:elevation="5dp"
                android:hint="@string/hint_password_confirm"
                android:layout_column="1"
                android:layout_row="1"

@@ -1,11 +1,6 @@
 package com.example.clara.contask;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.provider.MediaStore;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +15,6 @@ import com.example.clara.contask.model.Message;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,13 +27,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
         notifyDataSetChanged();
         this.chats.addAll(chatsNew);
         notifyDataSetChanged();
-
     }
     public ChatsAdapter(ArrayList<Chat> chats, MainActivity mainActivity) {
-
         this.chats=chats;
         this.mainActivity=mainActivity;
-
     }
 
 
@@ -61,7 +52,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(mainActivity,ChatActivity.class);
+                Intent intent = new Intent(mainActivity, OpenChatActivity.class);
                 intent.putExtra("chatId",chat.getChatId());
                 mainActivity.startActivity(intent);
             }
@@ -94,7 +85,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             textViewTimeLastMessage.setText(lastMessage.getHourMessage()+ " • "+ lastMessage.getDateMessage());
             Picasso.get().load(chat.getChatPhotoUrl()).into(photo);
             System.out.println(System.currentTimeMillis());
-
 
         }
     }

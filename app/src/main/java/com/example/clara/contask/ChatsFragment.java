@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import com.example.clara.contask.model.Chat;
 import com.example.clara.contask.model.Message;
 import com.example.clara.contask.model.User;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -63,7 +62,7 @@ public class ChatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_chats, container, false);
     }
 
@@ -78,9 +77,9 @@ public class ChatsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        findChats();
+        getChats();
+        findLastMessages();
         setLastMessages();
-        Log.i("fddfs", "onStart: ");
     }
 
     public MutableLiveData<ArrayList<Chat>> getChats() {
@@ -110,8 +109,8 @@ public class ChatsFragment extends Fragment {
 
     }
 
-    public void findChats() {
-        getChats();
+    public void findLastMessages() {
+
         chatsMutableLiveData.observe(this, new Observer<ArrayList<Chat>>() {
 
             @Override
@@ -126,12 +125,8 @@ public class ChatsFragment extends Fragment {
                             FirebaseFirestore.getInstance().document(path).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-
                             lastMessage.setUser(value.toObject(User.class));
                             chat.getMessages().set(chat.getMessages().size() - 1, lastMessage);
-
-                            
                             auxChatArray.add(chat);
                             chatsWithUserLastMessageMutableLiveData.setValue(auxChatArray);
                         }
@@ -143,10 +138,10 @@ public class ChatsFragment extends Fragment {
 
     }
 
-    public void setLastMessages() {
+    public void setLastMessages() {// seta na recyclerview
         chatsWithUserLastMessageMutableLiveData.observe(this, new Observer<ArrayList<Chat>>() {
             @Override
-            public void onChanged(ArrayList<Chat> newChats) { // checa se todos os users das ultimas mensagens dos chats foram setados
+            public void onChanged(ArrayList<Chat> newChats) {
 
 
                 if (chats != null) {

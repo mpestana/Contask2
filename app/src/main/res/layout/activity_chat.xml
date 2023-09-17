@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/titles"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimary"
         android:elevation="50dp"
 
         android:orientation="horizontal"
@@ -75,6 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@drawable/titles"
+        android:backgroundTint="@color/gray_light"
         android:elevation="10dp"
         android:orientation="horizontal"
 

@@ -19,10 +19,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_titles"
             android:paddingLeft="5dp"
             android:textStyle="bold"
-            android:shadowColor="@color/colorAccent"
+            android:shadowColor="@color/colorPrimary"
             android:shadowDx="-5"
             android:shadowDy="1"
             android:shadowRadius="2"
@@ -35,7 +36,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
             android:src="@drawable/ic_chat"
-            android:tint="@color/colorAccent"
+            android:tint="@color/colorPrimary"
             >
 
         </ImageView>

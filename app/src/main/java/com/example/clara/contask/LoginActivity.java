@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,31 +31,44 @@ import com.google.firebase.auth.FirebaseAuth;
  * Created by clara on 27/11/2016.
  */
 
-public class LoginActivity  extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     TextView textViewRegister;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_login);
 
-        textViewRegister=  findViewById(R.id.textRegister);
-        Button buttonLogin=  findViewById(R.id.buttonLogin);
+
+        setButtonLoginClick();
+        setGoToRegister();
+
+    }
+
+    private void setGoToRegister() {
+        textViewRegister = findViewById(R.id.textRegister);
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setButtonLoginClick() {
+        Button buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //EditText edit = (EditText)findViewById(R.id.editText);
-                //String content = edit.getText().toString();
-                EditText editTextLogin = (EditText)findViewById(R.id.editTextEmailAddress);
-                EditText editTextPassword = (EditText)findViewById(R.id.editTextPassword);
+                EditText editTextLogin = (EditText) findViewById(R.id.editTextEmailAddress);
+                EditText editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
                 String login = editTextLogin.getText().toString();
                 String password = editTextPassword.getText().toString();
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(login,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(login, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         Intent main = new Intent(LoginActivity.this, MainActivity.class);
@@ -76,18 +90,7 @@ public class LoginActivity  extends AppCompatActivity {
 
             }
         });
-
-        textViewRegister.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
-
 
 
     @Override

@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ChatActivity"
+            android:name=".OpenChatActivity"
             android:exported="false"
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme" />
