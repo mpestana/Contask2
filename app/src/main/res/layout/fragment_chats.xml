@@ -46,7 +46,7 @@
         android:id="@+id/list_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_user"
+        tools:listitem="@layout/item_chat"
         app:layout_constraintTop_toTopOf="parent" />
 
 </LinearLayout>

@@ -14,16 +14,22 @@ public class Chat {
 
     private String chatPhotoUrl;
 
+    private List<String> usersOnline;
+
+    private List<String> allTokensMessagingUsers;
+
     public Chat() {
 
     }
 
-    public Chat(String nameChat, List<Message> messages, List<String> usersIds, String chatId, String chatPhotoUrl) {
+    public Chat(String nameChat, List<Message> messages, List<String> usersIds, String chatId, String chatPhotoUrl, List<String> usersOnline, List<String> allTokensMessagingUsers) {
         this.nameChat = nameChat;
         this.messages = messages;
         this.usersIds = usersIds;
         this.chatId = chatId;
         this.chatPhotoUrl = chatPhotoUrl;
+        this.usersOnline = usersOnline;
+        this.allTokensMessagingUsers = allTokensMessagingUsers;
     }
 
     public String getNameChat() {
@@ -64,5 +70,21 @@ public class Chat {
 
     public void setChatPhotoUrl(String chatPhotoUrl) {
         this.chatPhotoUrl = chatPhotoUrl;
+    }
+
+    public List<String> getUsersOnline() {
+        return usersOnline;
+    }
+
+    public void setUsersOnline(List<String> usersOnline) {
+        this.usersOnline = usersOnline;
+    }
+
+    public List<String> getAllTokensMessagingUsers() {
+        return allTokensMessagingUsers;
+    }
+
+    public void setAllTokensMessagingUsers(List<String> allTokensMessagingUsers) {
+        this.allTokensMessagingUsers = allTokensMessagingUsers;
     }
 }

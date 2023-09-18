@@ -12,11 +12,8 @@ public class MessageSend {
 
 
     private DocumentReference userMessage;
-
-
     private String textMessage;
     private long timeMessage;
-
 
     public MessageSend() {
 

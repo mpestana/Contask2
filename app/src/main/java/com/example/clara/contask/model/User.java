@@ -7,6 +7,10 @@ public class User {
 
     private String userPhotoUrl;
 
+    private String userToken;
+
+
+
     public User() {
 
     }
@@ -15,6 +19,15 @@ public class User {
         this.userId = userId;
         this.userName = userName;
         this.userPhotoUrl = userPhotoUrl;
+
+    }
+
+    public User(String userId, String userName, String userPhotoUrl, String token) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPhotoUrl = userPhotoUrl;
+        this.userToken=token;
+
     }
 
     public String getUserId() {
@@ -28,5 +41,15 @@ public class User {
     public String getUserPhotoUrl() {
         return userPhotoUrl;
     }
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
+    }
+
+
+
 
 }

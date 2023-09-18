@@ -18,12 +18,14 @@ import android.view.ViewGroup;
 import com.example.clara.contask.model.Chat;
 import com.example.clara.contask.model.Message;
 import com.example.clara.contask.model.User;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +57,9 @@ public class ChatsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
+
+
 
 
     @Override
@@ -121,8 +124,8 @@ public class ChatsFragment extends Fragment {
                     Chat chat = userChats.get(finalI);
                     Message lastMessage = chat.getMessages().get(chat.getMessages().size() - 1);
                     String path = lastMessage.getUserMessage().getPath();
-                    ArrayList<Chat> auxChatArray =new ArrayList<>();
-                            FirebaseFirestore.getInstance().document(path).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    ArrayList<Chat> auxChatArray = new ArrayList<>();
+                    FirebaseFirestore.getInstance().document(path).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                             lastMessage.setUser(value.toObject(User.class));

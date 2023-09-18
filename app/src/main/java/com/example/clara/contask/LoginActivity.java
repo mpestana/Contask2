@@ -68,24 +68,26 @@ public class LoginActivity extends AppCompatActivity {
                 String login = editTextLogin.getText().toString();
                 String password = editTextPassword.getText().toString();
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(login, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        Intent main = new Intent(LoginActivity.this, MainActivity.class);
-                        main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        main.putExtra("name", "Teste User");
-                        main.putExtra("surname", "");
-                        main.putExtra("imageUrl", "");
-                        startService(new Intent(LoginActivity.this, AbelhaService.class));
-                        startActivity(main);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.failure_login), Toast.LENGTH_SHORT).show();
+               if(login!=null && !login.isEmpty() && password!=null && !password.isEmpty()){
+                   FirebaseAuth.getInstance().signInWithEmailAndPassword(login, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                       @Override
+                       public void onSuccess(AuthResult authResult) {
+                           Intent main = new Intent(LoginActivity.this, MainActivity.class);
+                           main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                           main.putExtra("name", "Teste User");
+                           main.putExtra("surname", "");
+                           main.putExtra("imageUrl", "");
+                           startService(new Intent(LoginActivity.this, AbelhaService.class));
+                           startActivity(main);
+                       }
+                   }).addOnFailureListener(new OnFailureListener() {
+                       @Override
+                       public void onFailure(@NonNull Exception e) {
+                           Toast.makeText(getApplicationContext(), getString(R.string.failure_login), Toast.LENGTH_SHORT).show();
 
-                    }
-                });
+                       }
+                   });
+               }
 
 
             }
