@@ -1,13 +1,11 @@
 package com.example.clara.contask;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
@@ -44,6 +42,8 @@ public class OpenChatActivity extends AppCompatActivity {
     private CircleImageView btnChat;
     private MessageAdapter messagesAdapter;
     private DocumentReference chatReference;
+
+
 
     private boolean inOnlineList;
 
@@ -93,7 +93,7 @@ public class OpenChatActivity extends AppCompatActivity {
                         int finalI = i;
 
                         Message mensage = messages.get(finalI);
-                        String path = mensage.getUserMessage().getPath();
+                        String path = mensage.getUserReference().getPath();
 
                         FirebaseFirestore.getInstance().document(path).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
@@ -148,6 +148,7 @@ public class OpenChatActivity extends AppCompatActivity {
                     long time = System.currentTimeMillis();
                     DocumentReference userReference = FirebaseFirestore.getInstance().document("users/" + userId);
 
+
                     MessageSend messageSend = new MessageSend(userReference, text, time);
 
                     List<Message> messagesCopy = chatMutableLiveData.getValue().getMessages();
@@ -155,12 +156,30 @@ public class OpenChatActivity extends AppCompatActivity {
                     List<MessageSend> messageCopySends = new ArrayList<>();
                     for (Message message :
                             messagesCopy) {
-                        messageCopySends.add(new MessageSend(message.getUserMessage(), message.getTextMessage(), message.getTimeMessage()));
+                        messageCopySends.add(new MessageSend(message.getUserReference(), message.getTextMessage(), message.getTimeMessage()));
                     }
 
                     messageCopySends.add(messageSend);
 
                     FirebaseFirestore.getInstance().document("chats/" + chatId).update("messages", messageCopySends);
+
+                    //enviando as notificacoes
+                    userReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            User user= documentSnapshot.toObject(User.class);
+                            List<String> recipientsOfflines=  chatMutableLiveData.getValue().getAllTokensMessagingUsers();
+                            recipientsOfflines.removeAll(chatMutableLiveData.getValue().getUsersOnline());
+                            String textNotification= user.getUserName()+": "+messageSend.getTextMessage();
+                            NotificationChat newNotification = new NotificationChat(recipientsOfflines,
+                                    chatMutableLiveData.getValue().getNameChat(),
+                                    textNotification, chatId);
+                            FunctionsUtil.sendNotificationChat(newNotification);
+
+                        }
+                    });
+
+
 
                 }
 

@@ -3,15 +3,12 @@ package com.example.clara.contask.model;
 
 import com.google.firebase.firestore.DocumentReference;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-
 
 public class MessageSend {
 
 
 
-    private DocumentReference userMessage;
+    private DocumentReference userReference;
     private String textMessage;
     private long timeMessage;
 
@@ -20,19 +17,19 @@ public class MessageSend {
 
     }
 
-    public MessageSend(DocumentReference userMessage, String textMessage, long timeMessage) {
-        this.userMessage = userMessage;
+    public MessageSend(DocumentReference userReference, String textMessage, long timeMessage) {
+        this.userReference = userReference;
         this.textMessage = textMessage;
         this.timeMessage = timeMessage;
 
     }
 
-    public DocumentReference getUserMessage() {
-        return userMessage;
+    public DocumentReference getUserReference() {
+        return userReference;
     }
 
-    public void setUserMessage(DocumentReference userMessage) {
-        this.userMessage = userMessage;
+    public void setUserReference(DocumentReference userReference) {
+        this.userReference = userReference;
     }
 
     public String getTextMessage() {

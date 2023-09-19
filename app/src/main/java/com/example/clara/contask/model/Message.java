@@ -1,32 +1,15 @@
 package com.example.clara.contask.model;
 
 
-import android.util.Log;
-
-import androidx.annotation.Nullable;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-
 
 
 public class Message  {
 
 
     private User user;
-    private com.google.firebase.firestore.DocumentReference userMessage;
+    private com.google.firebase.firestore.DocumentReference userReference;
 
 
     private String textMessage;
@@ -38,8 +21,8 @@ public class Message  {
 
     }
 
-    public Message(com.google.firebase.firestore.DocumentReference userMessage, String textMessage, long timeMessage) {
-        this.userMessage = userMessage;
+    public Message(com.google.firebase.firestore.DocumentReference userReference, String textMessage, long timeMessage) {
+        this.userReference = userReference;
         this.textMessage = textMessage;
         this.timeMessage = timeMessage;
 
@@ -54,12 +37,12 @@ public class Message  {
         this.user = user;
     }
 
-    public com.google.firebase.firestore.DocumentReference getUserMessage() {
-        return userMessage;
+    public com.google.firebase.firestore.DocumentReference getUserReference() {
+        return userReference;
     }
 
-    public void setUserMessage(com.google.firebase.firestore.DocumentReference userMessage) {
-        this.userMessage = userMessage;
+    public void setUserReference(com.google.firebase.firestore.DocumentReference userReference) {
+        this.userReference = userReference;
     }
 
     public String getTextMessage() {
