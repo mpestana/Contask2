@@ -1,15 +1,8 @@
 package com.example.clara.contask;
 
-import android.app.Notification;
-
+import com.example.clara.contask.chat.NotificationChat;
 import com.example.clara.contask.interfaces.Keys;
 import com.example.clara.contask.interfaces.network.NotificationService;
-
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;

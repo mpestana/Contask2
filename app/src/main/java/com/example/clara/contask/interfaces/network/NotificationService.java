@@ -1,5 +1,5 @@
 package com.example.clara.contask.interfaces.network;
-import com.example.clara.contask.NotificationChat;
+import com.example.clara.contask.chat.NotificationChat;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

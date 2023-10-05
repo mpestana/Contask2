@@ -7,7 +7,6 @@
     >
 
 
-
         <LinearLayout
             android:id="@+id/layoutMessageMine"
             android:layout_width="match_parent"
@@ -26,6 +25,18 @@
                 >
 
             </TextView>
+            <ImageView
+                android:id="@+id/imageViewTextMessageMine"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:background="@drawable/message_photo_me"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                android:layout_gravity="right"
+                >
+
+            </ImageView>
             <TextView
                 android:id="@+id/textViewTextMessageMine"
                 android:layout_width="wrap_content"
@@ -97,17 +108,26 @@
                     >
 
                 </TextView>
+                <ImageView
+                    android:id="@+id/imageViewTextMessageOther"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/message_photo_from"
+                    android:adjustViewBounds="true"
+                    android:visibility="gone"
+                    >
+
+                </ImageView>
                 <TextView
                     android:id="@+id/textViewTextMessageOther"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
-
                     android:background="@drawable/message_from"
                     android:textColor="@color/black"
                     android:text="Texto "
                     android:textSize="@dimen/text_medium"
-
 
                     >
 

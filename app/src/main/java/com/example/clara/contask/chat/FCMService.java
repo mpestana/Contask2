@@ -1,4 +1,4 @@
-package com.example.clara.contask;
+package com.example.clara.contask.chat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -7,15 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-import com.example.clara.contask.OpenChatActivity;
-import com.example.clara.contask.model.Chat;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.clara.contask.R;
+import com.example.clara.contask.chat.OpenChatActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

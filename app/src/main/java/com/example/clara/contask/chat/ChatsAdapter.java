@@ -1,4 +1,4 @@
-package com.example.clara.contask;
+package com.example.clara.contask.chat;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.clara.contask.FunctionsUtil;
+import com.example.clara.contask.MainActivity;
+import com.example.clara.contask.R;
 import com.example.clara.contask.model.Chat;
 import com.example.clara.contask.model.Message;
 import com.squareup.picasso.Picasso;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder> {
-    private final MainActivity mainActivity;
+
     private ArrayList <Chat> chats;
 
     public void redraw(ArrayList<Chat> chatsNew) {
@@ -28,9 +31,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
         this.chats.addAll(chatsNew);
         notifyDataSetChanged();
     }
-    public ChatsAdapter(ArrayList<Chat> chats, MainActivity mainActivity) {
+    public ChatsAdapter(ArrayList<Chat> chats) {
         this.chats=chats;
-        this.mainActivity=mainActivity;
+
     }
 
 
@@ -52,9 +55,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(mainActivity, OpenChatActivity.class);
+                Intent intent = new Intent(v.getContext(), OpenChatActivity.class);
                 intent.putExtra("chatId",chat.getChatId());
-                mainActivity.startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
     }
@@ -78,12 +81,22 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
 
         public void bind(Chat chat) {
             Message lastMessage= chat.getMessages().get(chat.getMessages().size()-1);
-            String userNameLastMessage=FunctionsUtil.getFirstAndLastName(lastMessage.getUser().getUserName());
+            String userNameLastMessage= FunctionsUtil.getFirstAndLastName(lastMessage.getUser().getUserName());
             String textLastMessage= lastMessage.getTextMessage();
             textViewName.setText(chat.getNameChat());
-            textViewLastMessage.setText(userNameLastMessage+": "+textLastMessage);
+            if(lastMessage.getUriPhoto()==null){
+                textViewLastMessage.setText(userNameLastMessage+": "+textLastMessage);
+            }
+            else{
+                textViewLastMessage.setText(userNameLastMessage+" "+ textViewLastMessage.getContext().getString(R.string.send_photo));
+            }
             textViewTimeLastMessage.setText(lastMessage.getHourMessage()+ " • "+ lastMessage.getDateMessage());
             Picasso.get().load(chat.getChatPhotoUrl()).into(photo);
+            photo.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
+                intent.putExtra("photoUrl",chat.getChatPhotoUrl());
+                v.getContext().startActivity(intent);
+            });
             System.out.println(System.currentTimeMillis());
 
         }

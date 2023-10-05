@@ -1,4 +1,4 @@
-package com.example.clara.contask;
+package com.example.clara.contask.chat;
 
 import android.os.Bundle;
 
@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.clara.contask.MainActivity;
+import com.example.clara.contask.R;
 import com.example.clara.contask.model.Chat;
 import com.example.clara.contask.model.Message;
 import com.example.clara.contask.model.User;
@@ -147,7 +149,7 @@ public class ChatsFragment extends Fragment {
 
                 if (chats != null) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    chatsAdapter = new ChatsAdapter((ArrayList<Chat>) newChats.clone(), (MainActivity) getContext());
+                    chatsAdapter = new ChatsAdapter((ArrayList<Chat>) newChats.clone());
                     recyclerView.setAdapter(chatsAdapter);
 
                 } else if (chatsAdapter != null) {

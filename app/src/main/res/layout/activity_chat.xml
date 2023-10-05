@@ -51,9 +51,24 @@
         android:background="@drawable/button"
         android:backgroundTint="@color/white"
         android:inputType="textPersonName"
+        android:paddingRight="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnChat"
         app:layout_constraintStart_toStartOf="parent"></EditText>
+
+    <ImageView
+        android:id="@+id/btn_photo"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/icon_photo"
+        android:tint="@color/colorPrimaryDark"
+        android:translationZ="1000dp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_chat"
+        app:layout_constraintEnd_toEndOf="@+id/edit_chat"
+        app:layout_constraintTop_toTopOf="@+id/edit_chat">
+
+    </ImageView>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/btnChat"

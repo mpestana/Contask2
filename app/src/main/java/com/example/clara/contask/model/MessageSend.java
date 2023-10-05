@@ -1,6 +1,8 @@
 package com.example.clara.contask.model;
 
 
+import android.net.Uri;
+
 import com.google.firebase.firestore.DocumentReference;
 
 
@@ -12,16 +14,17 @@ public class MessageSend {
     private String textMessage;
     private long timeMessage;
 
+    private String uriPhoto;
     public MessageSend() {
 
 
     }
 
-    public MessageSend(DocumentReference userReference, String textMessage, long timeMessage) {
+    public MessageSend(DocumentReference userReference, String textMessage, long timeMessage, String uriPhoto) {
         this.userReference = userReference;
         this.textMessage = textMessage;
         this.timeMessage = timeMessage;
-
+        this.uriPhoto = uriPhoto;
     }
 
     public DocumentReference getUserReference() {
@@ -46,5 +49,13 @@ public class MessageSend {
 
     public void setTimeMessage(long timeMessage) {
         this.timeMessage = timeMessage;
+    }
+
+    public String getUriPhoto() {
+        return uriPhoto;
+    }
+
+    public void setUriPhoto(String uriPhoto) {
+        this.uriPhoto = uriPhoto;
     }
 }

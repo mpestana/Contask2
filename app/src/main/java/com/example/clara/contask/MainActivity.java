@@ -20,16 +20,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.clara.contask.chat.ChatsFragment;
 import com.example.clara.contask.model.Abelha;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.awareness.state.Weather;
 import com.google.android.gms.common.api.GoogleApiClient;

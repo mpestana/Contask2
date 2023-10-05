@@ -1,4 +1,4 @@
-package com.example.clara.contask;
+package com.example.clara.contask.chat;
 
 import java.util.List;
 
