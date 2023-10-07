@@ -57,4 +57,6 @@
     <string name="type_message">Digite sua mensagem</string>
     <string name="you">Você</string>
     <string name="send_photo">enviou uma foto</string>
+    <string name="feed">Mural</string>
+    <string name="participants">Participantes</string>
 </resources>

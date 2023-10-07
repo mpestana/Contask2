@@ -4,6 +4,9 @@ import com.example.clara.contask.chat.NotificationChat;
 import com.example.clara.contask.interfaces.Keys;
 import com.example.clara.contask.interfaces.network.NotificationService;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,6 +21,22 @@ public class FunctionsUtil {
             return name;
         } else
             return names[0] + " " + names[1];
+    }
+
+    public static String getHourFormat(long time) {
+
+        Timestamp timestamp = new Timestamp(time);
+        String date = new SimpleDateFormat("HH:mm").format(timestamp.getTime());
+
+        return date.toString();
+    }
+
+    public static String getDateFormat(long time) {
+        Timestamp timestamp = new Timestamp(time);
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(timestamp.getTime());
+        return date.toString();
+
+
     }
 
     public static void sendNotificationChat(NotificationChat notification) {

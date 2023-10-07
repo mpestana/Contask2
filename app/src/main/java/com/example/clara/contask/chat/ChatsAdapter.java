@@ -1,12 +1,14 @@
 package com.example.clara.contask.chat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -84,6 +86,15 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             String userNameLastMessage= FunctionsUtil.getFirstAndLastName(lastMessage.getUser().getUserName());
             String textLastMessage= lastMessage.getTextMessage();
             textViewName.setText(chat.getNameChat());
+            System.out.println("teste "+ chat.getTypeChat());
+            if(chat.getTypeChat().equals("Campaign")){
+                textViewName.setTextColor(ResourcesCompat.getColor(textViewName.getResources(),R.color.colorCampaign,null));
+            } else if (chat.getTypeChat().equals("Task")) {
+                textViewName.setTextColor(ResourcesCompat.getColor(textViewName.getResources(),R.color.colorChatTask,null));
+            } else  if (chat.getTypeChat().equals("Stage Task") || chat.getTypeChat().equals("StageTask")) {
+                textViewName.setTextColor(ResourcesCompat.getColor(textViewName.getResources(),R.color.colorChatStageTask,null));
+            }
+
             if(lastMessage.getUriPhoto()==null){
                 textViewLastMessage.setText(userNameLastMessage+": "+textLastMessage);
             }

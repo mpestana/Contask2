@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.clara.contask.campaign.CampaignsFragment;
 import com.example.clara.contask.chat.ChatsFragment;
 import com.example.clara.contask.model.Abelha;
 import com.facebook.login.LoginManager;
@@ -141,6 +142,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else if (menuItem.getItemId()==R.id.chat) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new ChatsFragment()).commit();
+
+                    }
+                    else if (menuItem.getItemId()==R.id.campaigns) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new CampaignsFragment()).commit();
+
+                    }
+                    else if (menuItem.getItemId()==R.id.tasks) {
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new ChatsFragment()).commit();
 
                     }
 

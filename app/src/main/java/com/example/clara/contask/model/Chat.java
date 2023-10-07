@@ -12,6 +12,7 @@ public class Chat {
 
     private String chatId;
 
+    private String typeChat;
     private String chatPhotoUrl;
 
     private List<String> usersOnline;
@@ -22,11 +23,12 @@ public class Chat {
 
     }
 
-    public Chat(String nameChat, List<Message> messages, List<String> usersIds, String chatId, String chatPhotoUrl, List<String> usersOnline, List<String> allTokensMessagingUsers) {
+    public Chat(String nameChat, List<Message> messages, List<String> usersIds, String chatId, String typeChat, String chatPhotoUrl, List<String> usersOnline, List<String> allTokensMessagingUsers) {
         this.nameChat = nameChat;
         this.messages = messages;
         this.usersIds = usersIds;
         this.chatId = chatId;
+        this.typeChat = typeChat;
         this.chatPhotoUrl = chatPhotoUrl;
         this.usersOnline = usersOnline;
         this.allTokensMessagingUsers = allTokensMessagingUsers;
@@ -86,5 +88,13 @@ public class Chat {
 
     public void setAllTokensMessagingUsers(List<String> allTokensMessagingUsers) {
         this.allTokensMessagingUsers = allTokensMessagingUsers;
+    }
+
+    public String getTypeChat() {
+        return typeChat;
+    }
+
+    public void setTypeChat(String typeChat) {
+        this.typeChat = typeChat;
     }
 }

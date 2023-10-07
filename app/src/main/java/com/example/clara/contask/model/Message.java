@@ -3,6 +3,7 @@ package com.example.clara.contask.model;
 
 import android.net.Uri;
 
+import com.example.clara.contask.FunctionsUtil;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.sql.Timestamp;
@@ -54,9 +55,8 @@ public class Message  {
     }
 
     public String getDateMessage() {
-        Timestamp timestamp = new Timestamp(this.timeMessage);
-        String date = new SimpleDateFormat("dd/MM/yyyy").format(timestamp.getTime());
-        return date.toString();
+
+        return FunctionsUtil.getDateFormat(this.timeMessage);
 
 
     }
@@ -66,11 +66,7 @@ public class Message  {
     }
 
     public String getHourMessage() {
-
-        Timestamp timestamp = new Timestamp(this.timeMessage);
-        String date = new SimpleDateFormat("HH:mm").format(timestamp.getTime());
-
-        return date.toString();
+        return FunctionsUtil.getHourFormat(this.timeMessage);
     }
 
     public void setTextMessage(String textMessage) {

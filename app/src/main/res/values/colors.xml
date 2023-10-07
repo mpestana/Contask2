@@ -2,11 +2,16 @@
 <resources>
     <color name="colorPrimary">#fdc600</color>
     <color name="colorPrimaryDark">#FFB600</color>
-    <color name="colorPrimaryLight">#ffe831</color>5c0099
+    <color name="colorPrimaryLight">#ffe831</color>
     <color name="colorPurple">#5c0099</color>
     <color name="colorAccent">#b2b6bd</color>
     <color name="colorGreen">#1CDD24</color>
     <color name="white">#FFF</color>
     <color name="gray_light">#e9ecef</color>
     <color name="black">#000</color>
+    <color name="colorCampaign">#FFB600</color>
+    <color name="colorChatTask">#0077b6</color>
+    <color name="colorChatStageTask">#29a14a</color>
+
+
 </resources>

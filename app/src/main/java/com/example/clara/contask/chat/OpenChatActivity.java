@@ -245,9 +245,11 @@ public class OpenChatActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
-            Uri selectedPhoto = data.getData();
-            Bitmap bitmap = null;
-            uploadPhoto(selectedPhoto);
+            if(data!=null){
+                Uri selectedPhoto = data.getData();
+                if(selectedPhoto!=null)
+                    uploadPhoto(selectedPhoto);
+            }
         }
     }
 

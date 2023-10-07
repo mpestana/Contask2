@@ -32,10 +32,13 @@
                 android:id="@+id/textViewChatName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="@color/colorCampaign"
                 android:text="Texto"
-                android:textSize="@dimen/text_medium"
-
+                android:textSize="@dimen/text_large"
+                android:shadowColor="@color/black"
+                android:shadowDx="0"
+                android:shadowDy="1"
+                android:shadowRadius="1"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
