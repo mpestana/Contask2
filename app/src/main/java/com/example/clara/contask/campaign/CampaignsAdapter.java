@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clara.contask.R;
-import com.example.clara.contask.chat.ActivityFullScreenPhoto;
 import com.example.clara.contask.chat.OpenChatActivity;
 import com.example.clara.contask.model.Campaign;
 import com.squareup.picasso.Picasso;
@@ -53,7 +52,7 @@ public class CampaignsAdapter extends RecyclerView.Adapter<CampaignsAdapter.Camp
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), OpenChatActivity.class);
+                Intent intent = new Intent(v.getContext(), CampaignActivity.class);
                 intent.putExtra("campaignId",campaign.getCampaignId());
                 v.getContext().startActivity(intent);
             }
@@ -80,7 +79,7 @@ public class CampaignsAdapter extends RecyclerView.Adapter<CampaignsAdapter.Camp
 
             Picasso.get().load(campaign.getCampaignPhotoUrl()).into(photo);
             photo.setOnClickListener(v -> {
-                Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
+                Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
                 intent.putExtra("photoUrl",campaign.getCampaignPhotoUrl());
                 v.getContext().startActivity(intent);
             });

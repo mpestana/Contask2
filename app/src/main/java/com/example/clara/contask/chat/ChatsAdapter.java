@@ -1,7 +1,6 @@
 package com.example.clara.contask.chat;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.clara.contask.campaign.CampaignActivity;
 import com.example.clara.contask.FunctionsUtil;
-import com.example.clara.contask.MainActivity;
 import com.example.clara.contask.R;
 import com.example.clara.contask.model.Chat;
 import com.example.clara.contask.model.Message;
@@ -104,7 +103,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             textViewTimeLastMessage.setText(lastMessage.getHourMessage()+ " • "+ lastMessage.getDateMessage());
             Picasso.get().load(chat.getChatPhotoUrl()).into(photo);
             photo.setOnClickListener(v -> {
-                Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
+                Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
                 intent.putExtra("photoUrl",chat.getChatPhotoUrl());
                 v.getContext().startActivity(intent);
             });

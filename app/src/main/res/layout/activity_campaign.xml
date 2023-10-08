@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.clara.contask.CampaignActivity">
+    tools:context="com.example.clara.contask.campaign.CampaignActivity">
 
 
     <FrameLayout
@@ -24,7 +24,7 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorCampaign"
         app:menu="@menu/menu_bottom_campaign"
         app:itemIconTint="@color/bnv_tab_item_color"
         app:itemTextColor="@color/bnv_tab_item_color"

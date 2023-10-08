@@ -25,13 +25,17 @@
             android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".campaign.CampaignActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".chat.ActivityFullScreenPhoto"
+            android:name=".campaign.CampaignActivity$ActivityFullScreenPhoto"
             android:exported="false"
             android:label=""
             android:theme="@style/AppTheme" />

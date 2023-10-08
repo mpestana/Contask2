@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Texto"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_extra_large"
                 android:gravity="center|left"
                 android:layout_marginLeft="5dp"

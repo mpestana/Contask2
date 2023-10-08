@@ -1,4 +1,4 @@
-package com.example.clara.contask;
+package com.example.clara.contask.campaign;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,50 +8,44 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.clara.contask.campaign.CampaignsFragment;
+import com.example.clara.contask.LoginActivity;
+import com.example.clara.contask.R;
+import com.example.clara.contask.SampleCarouselViewFragment;
+import com.example.clara.contask.ServiceTask;
+import com.example.clara.contask.SettingsFragment;
 import com.example.clara.contask.chat.ChatsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CampaignActivity extends AppCompatActivity {
 
 
-
+    private String campaignId;
     private BottomNavigationView bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        verifyAuthentication();
+        setContentView(R.layout.activity_campaign);
 
         bottomNavigation = findViewById(R.id.bottomNavigationView);
         bottomNavigation.setOnNavigationItemSelectedListener(navListener);
 
+        campaignId = getIntent().getExtras().getString("campaignId", null);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SampleCarouselViewFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new FeedFragment(campaignId)).commit();
 
 
 
-
-        String channelId = "channel-01";
-        String channelName = "Channel Name";
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel mChannel = new NotificationChannel(
-                    channelId, channelName, importance);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-
-            notificationManager.createNotificationChannel(mChannel);
-        }
 
 
     }
@@ -61,19 +55,18 @@ public class CampaignActivity extends AppCompatActivity {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     if(menuItem.getItemId()==R.id.feed){
-                        startService(new Intent(getApplicationContext(), ServiceTask.class));
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SampleCarouselViewFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new FeedFragment(campaignId)).commit();
 
                     } else if (menuItem.getItemId()==R.id.tasks) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SettingsFragment()).commit();
 
                     }
                     else if (menuItem.getItemId()==R.id.chat) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new ChatsFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new CampaignChatsFragment(campaignId)).commit();
 
                     }
                     else if (menuItem.getItemId()==R.id.participants) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new CampaignsFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new ParticipantsFragment(campaignId)).commit();
 
                     }
 
@@ -128,10 +121,39 @@ public class CampaignActivity extends AppCompatActivity {
     }
 
 
+    public static class ActivityFullScreenPhoto extends AppCompatActivity {
 
 
+        private ImageView imageFullScreen;
+
+        private CircleImageView btnImageSize;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_fullscreen_photo);
+
+            imageFullScreen = findViewById(R.id.imageFullScreen);
+            btnImageSize= findViewById(R.id.btn_image_size);
+
+            String photoUrl = getIntent().getExtras().getString("photoUrl", null);
+            if (photoUrl != null) {
+                Picasso.get().load(photoUrl).into(imageFullScreen);
+            }
+
+            btnImageSize.setOnClickListener(v -> {
+                if(imageFullScreen.getScaleType()==ImageView.ScaleType.FIT_CENTER){
+                    imageFullScreen.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                }
+                else {
+                    imageFullScreen.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                }
+            });
+        }
 
 
+    }
 }
 
 

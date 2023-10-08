@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.clara.contask.campaign.CampaignActivity">
+
+
+    <LinearLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:background="@drawable/titles"
+
+        android:elevation="60dp"
+        android:orientation="horizontal"
+        android:paddingTop="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:shadowColor="@color/colorCampaign"
+            android:shadowDx="-5"
+            android:shadowDy="1"
+            android:shadowRadius="2"
+            android:text="@string/feed"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_titles"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/icon_feed"
+            android:tint="@color/colorCampaign">
+
+        </ImageView>
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_feed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_title"
+        tools:listitem="@layout/item_message_feed" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

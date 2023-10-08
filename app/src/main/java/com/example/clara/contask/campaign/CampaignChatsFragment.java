@@ -39,18 +39,11 @@ public class CampaignChatsFragment extends Fragment {
     private MutableLiveData<ArrayList<Chat>> chatsWithUserLastMessageMutableLiveData = new MutableLiveData<ArrayList<Chat>>(new ArrayList<Chat>());
 
     private ChatsAdapter chatsAdapter;
-
-    public CampaignChatsFragment() {
-        // Required empty public constructor
+    private String campaignId;
+    public CampaignChatsFragment(String campaignId) {
+        this.campaignId=campaignId;
     }
 
-
-    public static CampaignChatsFragment newInstance(String param1, String param2) {
-        CampaignChatsFragment fragment = new CampaignChatsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
 
     @Override
@@ -65,7 +58,7 @@ public class CampaignChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_chats, container, false);
+        return inflater.inflate(R.layout.fragment_campaign_chats, container, false);
     }
 
     @Override
@@ -86,7 +79,7 @@ public class CampaignChatsFragment extends Fragment {
 
     public MutableLiveData<ArrayList<Chat>> getChats() {
 
-        FirebaseFirestore.getInstance().collection("/chats").whereArrayContains("usersIds", FirebaseAuth.getInstance().getUid())
+        FirebaseFirestore.getInstance().collection("/chats").whereArrayContains("usersIds", FirebaseAuth.getInstance().getUid()).whereEqualTo("campaignId",campaignId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

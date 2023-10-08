@@ -1,11 +1,8 @@
 package com.example.clara.contask.chat;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -20,11 +17,9 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.clara.contask.AbelhaService;
+import com.example.clara.contask.campaign.CampaignActivity;
 import com.example.clara.contask.FunctionsUtil;
-import com.example.clara.contask.MainActivity;
 import com.example.clara.contask.R;
-import com.example.clara.contask.RegisterActivity;
 import com.example.clara.contask.model.Chat;
 import com.example.clara.contask.model.Message;
 import com.example.clara.contask.model.MessageSend;
@@ -44,7 +39,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -108,7 +102,7 @@ public class OpenChatActivity extends AppCompatActivity {
                     titleChat.setText(chat.getNameChat());
                     Picasso.get().load(chat.getChatPhotoUrl()).into(photo);
                     photo.setOnClickListener(v -> {
-                        Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
+                        Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
                         intent.putExtra("photoUrl",chat.getChatPhotoUrl());
                         v.getContext().startActivity(intent);
                     });

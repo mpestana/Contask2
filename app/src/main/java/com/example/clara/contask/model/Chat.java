@@ -11,7 +11,7 @@ public class Chat {
     private List<String> usersIds;
 
     private String chatId;
-
+    private String campaignId;
     private String typeChat;
     private String chatPhotoUrl;
 
@@ -23,15 +23,24 @@ public class Chat {
 
     }
 
-    public Chat(String nameChat, List<Message> messages, List<String> usersIds, String chatId, String typeChat, String chatPhotoUrl, List<String> usersOnline, List<String> allTokensMessagingUsers) {
+    public Chat(String nameChat, List<Message> messages, List<String> usersIds, String chatId, String campaignId, String typeChat, String chatPhotoUrl, List<String> usersOnline, List<String> allTokensMessagingUsers) {
         this.nameChat = nameChat;
         this.messages = messages;
         this.usersIds = usersIds;
         this.chatId = chatId;
+        this.campaignId = campaignId;
         this.typeChat = typeChat;
         this.chatPhotoUrl = chatPhotoUrl;
         this.usersOnline = usersOnline;
         this.allTokensMessagingUsers = allTokensMessagingUsers;
+    }
+
+    public String getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
     }
 
     public String getNameChat() {

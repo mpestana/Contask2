@@ -9,8 +9,8 @@
     <color name="white">#FFF</color>
     <color name="gray_light">#e9ecef</color>
     <color name="black">#000</color>
-    <color name="colorCampaign">#FFB600</color>
-    <color name="colorChatTask">#0077b6</color>
+    <color name="colorCampaign">#0077b6</color>0077b6
+    <color name="colorChatTask">#FFB600</color>
     <color name="colorChatStageTask">#29a14a</color>
 
 

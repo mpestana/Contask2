@@ -41,13 +41,6 @@ public class CampaignsFragment extends Fragment {
     }
 
 
-    public static CampaignsFragment newInstance(String param1, String param2) {
-        CampaignsFragment fragment = new CampaignsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
