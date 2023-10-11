@@ -35,7 +35,17 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".campaign.CampaignActivity$ActivityFullScreenPhoto"
+            android:name=".ActivityFullScreenPhoto"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".campaign.TaskActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".campaign.StageTaskActivity"
             android:exported="false"
             android:label=""
             android:theme="@style/AppTheme" />

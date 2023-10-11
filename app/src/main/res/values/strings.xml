@@ -53,10 +53,20 @@
     <string name="hint_password">Digite sua senha</string>
     <string name="hint_password_confirm">Digite sua senha novamente</string>
     <string name="tasks">Tarefas</string>
+    <string name="stage_tasks">Etapas da tarefa</string>
+    <string name="your_tasks">Suas tarefas</string>
+    <string name="other_tasks">Outras tarefas</string>
+    <string name="your_stage">Sem conteúdo</string>
+    <string name="other_stages">Outras etapas</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="type_message">Digite sua mensagem</string>
     <string name="you">Você</string>
     <string name="send_photo">enviou uma foto</string>
     <string name="feed">Mural</string>
     <string name="participants">Participantes</string>
+    <string name="to_apply">Me Candidatar</string>
+    <string name="begin">Inicio</string>
+    <string name="end">fim</string>
+    <string name="deliver_stage_task">Entregar Tarefa</string>
+
 </resources>

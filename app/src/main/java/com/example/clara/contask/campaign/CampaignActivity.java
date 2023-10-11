@@ -58,7 +58,7 @@ public class CampaignActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new FeedFragment(campaignId)).commit();
 
                     } else if (menuItem.getItemId()==R.id.tasks) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SettingsFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new TasksFragment(campaignId)).commit();
 
                     }
                     else if (menuItem.getItemId()==R.id.chat) {
@@ -121,39 +121,7 @@ public class CampaignActivity extends AppCompatActivity {
     }
 
 
-    public static class ActivityFullScreenPhoto extends AppCompatActivity {
 
-
-        private ImageView imageFullScreen;
-
-        private CircleImageView btnImageSize;
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_fullscreen_photo);
-
-            imageFullScreen = findViewById(R.id.imageFullScreen);
-            btnImageSize= findViewById(R.id.btn_image_size);
-
-            String photoUrl = getIntent().getExtras().getString("photoUrl", null);
-            if (photoUrl != null) {
-                Picasso.get().load(photoUrl).into(imageFullScreen);
-            }
-
-            btnImageSize.setOnClickListener(v -> {
-                if(imageFullScreen.getScaleType()==ImageView.ScaleType.FIT_CENTER){
-                    imageFullScreen.setScaleType(ImageView.ScaleType.FIT_XY);
-
-                }
-                else {
-                    imageFullScreen.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-                }
-            });
-        }
-
-
-    }
 }
 
 

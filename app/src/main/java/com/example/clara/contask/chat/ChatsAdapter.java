@@ -11,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.clara.contask.ActivityFullScreenPhoto;
 import com.example.clara.contask.campaign.CampaignActivity;
 import com.example.clara.contask.FunctionsUtil;
 import com.example.clara.contask.R;
@@ -89,9 +90,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             if(chat.getTypeChat().equals("Campaign")){
                 textViewName.setTextColor(ResourcesCompat.getColor(textViewName.getResources(),R.color.colorCampaign,null));
             } else if (chat.getTypeChat().equals("Task")) {
-                textViewName.setTextColor(ResourcesCompat.getColor(textViewName.getResources(),R.color.colorChatTask,null));
+                textViewName.setTextColor(ResourcesCompat.getColor(textViewName.getResources(),R.color.colorTask,null));
             } else  if (chat.getTypeChat().equals("Stage Task") || chat.getTypeChat().equals("StageTask")) {
-                textViewName.setTextColor(ResourcesCompat.getColor(textViewName.getResources(),R.color.colorChatStageTask,null));
+                textViewName.setTextColor(ResourcesCompat.getColor(textViewName.getResources(),R.color.colorStageTask,null));
             }
 
             if(lastMessage.getUriPhoto()==null){
@@ -103,7 +104,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             textViewTimeLastMessage.setText(lastMessage.getHourMessage()+ " • "+ lastMessage.getDateMessage());
             Picasso.get().load(chat.getChatPhotoUrl()).into(photo);
             photo.setOnClickListener(v -> {
-                Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
+                Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
                 intent.putExtra("photoUrl",chat.getChatPhotoUrl());
                 v.getContext().startActivity(intent);
             });

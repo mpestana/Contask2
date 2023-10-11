@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clara.contask.ActivityFullScreenPhoto;
 import com.example.clara.contask.FunctionsUtil;
 import com.example.clara.contask.R;
 import com.example.clara.contask.model.Message;
@@ -94,7 +95,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MessageViewHol
                     Picasso.get().load(message.getUriPhoto()).into(imageViewMessage);
                     imageViewMessage.setVisibility(View.VISIBLE);
                     imageViewMessage.setOnClickListener(v -> {
-                        Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
+                        Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
                         intent.putExtra("photoUrl",message.getUriPhoto());
                         v.getContext().startActivity(intent);
                     });

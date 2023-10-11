@@ -6,12 +6,14 @@
     <color name="colorPurple">#5c0099</color>
     <color name="colorAccent">#b2b6bd</color>
     <color name="colorGreen">#1CDD24</color>
+    <color name="colorRed">#FF1100</color>
+
     <color name="white">#FFF</color>
     <color name="gray_light">#e9ecef</color>
     <color name="black">#000</color>
-    <color name="colorCampaign">#0077b6</color>0077b6
-    <color name="colorChatTask">#FFB600</color>
-    <color name="colorChatStageTask">#29a14a</color>
+    <color name="colorCampaign">#73d2de</color>0077b6
+    <color name="colorTask">#80ed99</color>
+    <color name="colorStageTask">#bdd5ea</color>
 
 
 </resources>

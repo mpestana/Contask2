@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clara.contask.ActivityFullScreenPhoto;
 import com.example.clara.contask.campaign.CampaignActivity;
 import com.example.clara.contask.FunctionsUtil;
 import com.example.clara.contask.R;
@@ -116,7 +117,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     Picasso.get().load(message.getUriPhoto()).into(imageViewMessageMine);
                     imageViewMessageMine.setVisibility(View.VISIBLE);
                     imageViewMessageMine.setOnClickListener(v -> {
-                        Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
+                        Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
                         intent.putExtra("photoUrl",message.getUriPhoto());
                         v.getContext().startActivity(intent);
                     });
@@ -145,7 +146,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                     Picasso.get().load(message.getUriPhoto()).into(imageViewMessageOther);
                     imageViewMessageOther.setVisibility(View.VISIBLE);
                     imageViewMessageOther.setOnClickListener(v -> {
-                        Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
+                        Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
                         intent.putExtra("photoUrl",message.getUriPhoto());
                         v.getContext().startActivity(intent);
                     });
@@ -153,7 +154,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 textViewNameOther.setText(FunctionsUtil.getFirstAndLastName(message.getUser().getUserName()) + " • " + message.getHourMessage() + " • " + message.getDateMessage());
                 Picasso.get().load(message.getUser().getUserPhotoUrl()).into(photo);
                 photo.setOnClickListener(v -> {
-                    Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
+                    Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
                     intent.putExtra("photoUrl",message.getUser().getUserPhotoUrl());
                     v.getContext().startActivity(intent);
                 });

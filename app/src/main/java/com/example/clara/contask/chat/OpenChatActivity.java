@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clara.contask.ActivityFullScreenPhoto;
 import com.example.clara.contask.campaign.CampaignActivity;
 import com.example.clara.contask.FunctionsUtil;
 import com.example.clara.contask.R;
@@ -102,7 +103,7 @@ public class OpenChatActivity extends AppCompatActivity {
                     titleChat.setText(chat.getNameChat());
                     Picasso.get().load(chat.getChatPhotoUrl()).into(photo);
                     photo.setOnClickListener(v -> {
-                        Intent intent = new Intent(v.getContext(), CampaignActivity.ActivityFullScreenPhoto.class);
+                        Intent intent = new Intent(v.getContext(), ActivityFullScreenPhoto.class);
                         intent.putExtra("photoUrl",chat.getChatPhotoUrl());
                         v.getContext().startActivity(intent);
                     });

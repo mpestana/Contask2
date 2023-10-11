@@ -1,8 +1,13 @@
 package com.example.clara.contask.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
-public class Task {
+public class Task implements Parcelable {
 
     private  String title;
 
@@ -33,6 +38,28 @@ public class Task {
         this.usersIds = usersIds;
         this.stageTasks = stageTasks;
     }
+
+    protected Task(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+        dependecyTasksIds = in.createStringArrayList();
+        begin = in.readLong();
+        end = in.readLong();
+        chatId = in.readString();
+        usersIds = in.createStringArrayList();
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -96,5 +123,21 @@ public class Task {
 
     public void setStageTasks(List<StageTask> stageTasks) {
         this.stageTasks = stageTasks;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeStringList(dependecyTasksIds);
+        dest.writeLong(begin);
+        dest.writeLong(end);
+        dest.writeString(chatId);
+        dest.writeStringList(usersIds);
     }
 }
