@@ -1,8 +1,12 @@
 package com.example.clara.contask.campaign;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clara.contask.ActivityFullScreenPhoto;
 import com.example.clara.contask.FunctionsUtil;
 import com.example.clara.contask.R;
 import com.example.clara.contask.model.StageTask;
@@ -22,6 +27,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +44,7 @@ public class StageTaskActivity extends AppCompatActivity {
 
     private Button deliverStageTask;
     private Button toApply;
-
+    private LinearLayout layoutDescription;
     private RecyclerView participants;
 
     private ParticipantsAdapter participantsAdapter;
@@ -58,7 +64,7 @@ public class StageTaskActivity extends AppCompatActivity {
         toApply= findViewById(R.id.buttonApply);
         deliverStageTask= findViewById(R.id.buttonDeliver);
         task = getIntent().getParcelableExtra("stageTask");
-
+        layoutDescription = findViewById(R.id.layout_description);
         fillInformations();
         usersMutableLiveData.observe(this, new Observer<ArrayList<User>>() {
 
@@ -94,6 +100,29 @@ public class StageTaskActivity extends AppCompatActivity {
             }
             else{
                 deliverStageTask.setVisibility(View.GONE);
+            }
+
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+            int width = displayMetrics.widthPixels;
+            for (int i = 0; i < task.getDescriptionImagesUrls().size(); i++) {
+                ImageView image= new ImageView(getApplicationContext());
+                image.setMinimumWidth((int) (width*0.5));
+                image.setMinimumHeight((int) (width*0.5));
+                Picasso.get().load(task.getDescriptionImagesUrls().get(i)).into(image);
+                int finalI = i;
+                image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getBaseContext(), ActivityFullScreenPhoto.class);
+                        intent.putExtra("photoUrl",task.getDescriptionImagesUrls().get(finalI));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        getBaseContext().startActivity(intent);
+                    }
+                });
+                layoutDescription.addView(image);
             }
 
             ArrayList<User> auxUsersArray = new ArrayList<>();

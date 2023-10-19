@@ -42,7 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
+                android:layout_marginLeft="100dp"
                 android:layout_gravity="right"
+                android:autoLink="all"
                 android:background="@drawable/message_me"
                 android:textColor="@color/white"
                 android:text="Texto "
@@ -62,6 +64,8 @@
         android:text="Texto "
         android:textColor="@color/white"
         android:textSize="@dimen/text_large"
+        android:autoLink="all"
+
         android:textStyle="bold"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -123,10 +127,12 @@
                     android:id="@+id/textViewTextMessageOther"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="100dp"
                     android:background="@drawable/message_from"
                     android:textColor="@color/black"
                     android:text="Texto "
+                    android:autoLink="all"
+
                     android:textSize="@dimen/text_medium"
 
                     >

@@ -86,13 +86,6 @@ public class CampaignActivity extends AppCompatActivity {
 
 
 
-    public void verifyAuthentication() {
-        if (FirebaseAuth.getInstance().getUid() == null) {
-            Intent goLogin = new Intent(CampaignActivity.this, LoginActivity.class);
-            goLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(goLogin);
-        }
-    }
 
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);

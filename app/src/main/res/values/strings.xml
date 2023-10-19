@@ -56,8 +56,10 @@
     <string name="stage_tasks">Etapas da tarefa</string>
     <string name="your_tasks">Suas tarefas</string>
     <string name="other_tasks">Outras tarefas</string>
-    <string name="your_stage">Sem conteúdo</string>
+    <string name="your_stage">Suas etapas</string>
     <string name="other_stages">Outras etapas</string>
+    <string name="empyt">Sem conteúdo</string>
+
     <string name="title_activity_chat">ChatActivity</string>
     <string name="type_message">Digite sua mensagem</string>
     <string name="you">Você</string>

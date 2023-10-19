@@ -53,6 +53,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.CampaignViewHo
                 Intent intent = new Intent(v.getContext(), TaskActivity.class);
                 intent.putExtra("task",task);
                 intent.putParcelableArrayListExtra("stages", (ArrayList<? extends Parcelable>) task.getStageTasks());
+
                 v.getContext().startActivity(intent);
             }
         });

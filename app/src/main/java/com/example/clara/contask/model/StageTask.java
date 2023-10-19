@@ -14,6 +14,10 @@ public class StageTask implements Parcelable {
     private String description;
 
     private List<String> dependecyStageTasksIds;
+
+    private List<String> descriptionImagesUrls;
+    private List<String> deliveryImagesUrls;
+    private String deliveryText;
     private long begin;
     private long end;
 
@@ -24,14 +28,41 @@ public class StageTask implements Parcelable {
     public StageTask() {
     }
 
-    public StageTask(String title, String description, List<String> dependecyStageTasksIds, long begin, long end, String chatId, List<String> usersIds) {
+    public StageTask(String title, String description, List<String> dependecyStageTasksIds, List<String> descriptionImagesUrls, List<String> deliveryImagesUrls, String deliveryText, long begin, long end, String chatId, List<String> usersIds) {
         this.title = title;
         this.description = description;
         this.dependecyStageTasksIds = dependecyStageTasksIds;
+        this.descriptionImagesUrls = descriptionImagesUrls;
+        this.deliveryImagesUrls = deliveryImagesUrls;
+        this.deliveryText = deliveryText;
         this.begin = begin;
         this.end = end;
         this.chatId = chatId;
         this.usersIds = usersIds;
+    }
+
+    public List<String> getDescriptionImagesUrls() {
+        return descriptionImagesUrls;
+    }
+
+    public void setDescriptionImagesUrls(List<String> descriptionImagesUrls) {
+        this.descriptionImagesUrls = descriptionImagesUrls;
+    }
+
+    public List<String> getDeliveryImagesUrls() {
+        return deliveryImagesUrls;
+    }
+
+    public void setDeliveryImagesUrls(List<String> deliveryImagesUrls) {
+        this.deliveryImagesUrls = deliveryImagesUrls;
+    }
+
+    public String getDeliveryText() {
+        return deliveryText;
+    }
+
+    public void setDeliveryText(String deliveryText) {
+        this.deliveryText = deliveryText;
     }
 
     protected StageTask(Parcel in) {
@@ -42,6 +73,9 @@ public class StageTask implements Parcelable {
         end = in.readLong();
         chatId = in.readString();
         usersIds = in.createStringArrayList();
+        descriptionImagesUrls = in.createStringArrayList();
+        deliveryImagesUrls= in.createStringArrayList();
+        deliveryText=in.readString();
     }
 
     public static final Creator<StageTask> CREATOR = new Creator<StageTask>() {
@@ -126,5 +160,9 @@ public class StageTask implements Parcelable {
         dest.writeLong(end);
         dest.writeString(chatId);
         dest.writeStringList(usersIds);
+        dest.writeStringList(descriptionImagesUrls);
+        dest.writeStringList(deliveryImagesUrls);
+        dest.writeString(deliveryText);
+
     }
 }

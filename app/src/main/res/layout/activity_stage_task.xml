@@ -67,19 +67,30 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/description"
+        <LinearLayout
+            android:id="@+id/layout_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing."
-            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/button"
+            android:backgroundTint="@color/gray_light"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="@dimen/text_medium"
+            android:orientation="vertical"
             >
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing."
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_medium"
+                android:paddingBottom="20dp"
+                >
 
-        </TextView>
+            </TextView>
+
+        </LinearLayout>
 
 
 
