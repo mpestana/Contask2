@@ -118,13 +118,13 @@ public class ChatsFragment extends Fragment {
 
             @Override
             public void onChanged(ArrayList<Chat> userChats) {
+                ArrayList<Chat> auxChatArray = new ArrayList<>();
 
                 for (int i = 0; i < userChats.size(); i++) {//para cada chat busca o user da ultima mensagem
                     int finalI = i;
                     Chat chat = userChats.get(finalI);
                     Message lastMessage = chat.getMessages().get(chat.getMessages().size() - 1);
-                    String path = lastMessage.getUserReference().getPath();
-                    ArrayList<Chat> auxChatArray = new ArrayList<>();
+                    String path = lastMessage.getUserReference();
                     FirebaseFirestore.getInstance().document(path).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {

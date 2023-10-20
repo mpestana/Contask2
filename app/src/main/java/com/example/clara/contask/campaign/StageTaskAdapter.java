@@ -7,22 +7,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clara.contask.R;
 import com.example.clara.contask.model.StageTask;
+import com.example.clara.contask.model.StageTasksAnswers;
 import com.example.clara.contask.model.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
 public class StageTaskAdapter extends RecyclerView.Adapter<StageTaskAdapter.CampaignViewHolder> {
 
+    private final String campaignId;
     private ArrayList <StageTask> tasks;
 
 
-    public StageTaskAdapter(ArrayList<StageTask> tasks) {
+    public StageTaskAdapter(ArrayList<StageTask> tasks,String campaignId) {
         this.tasks=tasks;
-
+        this.campaignId=campaignId;
     }
 
 
@@ -46,6 +54,7 @@ public class StageTaskAdapter extends RecyclerView.Adapter<StageTaskAdapter.Camp
 
                 Intent intent = new Intent(v.getContext(), StageTaskActivity.class);
                 intent.putExtra("stageTask",task);
+                intent.putExtra("campaignId",campaignId);
                 v.getContext().startActivity(intent);
             }
         });
@@ -68,9 +77,14 @@ public class StageTaskAdapter extends RecyclerView.Adapter<StageTaskAdapter.Camp
         public void bind(StageTask task) {
 
             textViewName.setText(task.getTitle());
-            if(task.getEnd()>0){
-                status.setBackground(status.getContext().getResources().getDrawable(R.drawable.circle_status_task_red));
-            }
+            FirebaseFirestore.getInstance().document("/stageTasksAnswers/"+task.getChatId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(value!= null){
+                        status.setBackground(status.getContext().getResources().getDrawable(R.drawable.circle_status_task_red));
+                    }
+                }
+            });
 
         }
     }

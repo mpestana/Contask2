@@ -13,7 +13,6 @@ public class Task implements Parcelable {
 
     private String description;
 
-    private List<String> dependecyTasksIds;
     private long begin;
     private long end;
 
@@ -29,10 +28,9 @@ public class Task implements Parcelable {
 
     }
 
-    public Task(String title, String description, List<String> dependecyTasksIds, long begin, long end, String chatId, List<String> usersIds, List<StageTask> stageTasks, List<String> descriptionImagesUrls) {
+    public Task(String title, String description, long begin, long end, String chatId, List<String> usersIds, List<StageTask> stageTasks, List<String> descriptionImagesUrls) {
         this.title = title;
         this.description = description;
-        this.dependecyTasksIds = dependecyTasksIds;
         this.begin = begin;
         this.end = end;
         this.chatId = chatId;
@@ -52,7 +50,6 @@ public class Task implements Parcelable {
     protected Task(Parcel in) {
         title = in.readString();
         description = in.readString();
-        dependecyTasksIds = in.createStringArrayList();
         begin = in.readLong();
         end = in.readLong();
         chatId = in.readString();
@@ -88,13 +85,7 @@ public class Task implements Parcelable {
         this.description = description;
     }
 
-    public List<String> getDependecyTasksIds() {
-        return dependecyTasksIds;
-    }
 
-    public void setDependecyTasksIds(List<String> dependecyTasksIds) {
-        this.dependecyTasksIds = dependecyTasksIds;
-    }
 
     public long getBegin() {
         return begin;
@@ -145,7 +136,6 @@ public class Task implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(description);
-        dest.writeStringList(dependecyTasksIds);
         dest.writeLong(begin);
         dest.writeLong(end);
         dest.writeString(chatId);

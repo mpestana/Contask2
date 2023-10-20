@@ -24,11 +24,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.CampaignViewHolder> {
 
     private ArrayList <Task> tasks;
+    private String campaignId;
 
-
-    public TaskAdapter(ArrayList<Task> tasks) {
+    public TaskAdapter(ArrayList<Task> tasks, String campaignId) {
         this.tasks=tasks;
-
+        this.campaignId=campaignId;
     }
 
 
@@ -46,12 +46,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.CampaignViewHo
         Task task = tasks.get(position);
         holder.textViewName.setText(task.getTitle());
         holder.bind(task);
+        int finalPosition = position;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), TaskActivity.class);
                 intent.putExtra("task",task);
+                intent.putExtra("campaingId", campaignId);
+
                 intent.putParcelableArrayListExtra("stages", (ArrayList<? extends Parcelable>) task.getStageTasks());
 
                 v.getContext().startActivity(intent);

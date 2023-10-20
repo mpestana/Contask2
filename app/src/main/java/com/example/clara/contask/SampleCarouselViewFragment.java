@@ -172,8 +172,8 @@ public class SampleCarouselViewFragment extends Fragment {
                     allTasks = Arrays.asList(listTasks);
                 }
                 if (allTasks.size() == 0) {
-                    for (int i = 0; i <3 ; i++) {
-                        Tarefa newTarefa= new Tarefa(Integer.toString(i), "teste", "teste",
+                    for (int i = 0; i <1 ; i++) {
+                        Tarefa newTarefa= new Tarefa(Integer.toString(i), "Tarefa X", "teste",
                                 "teste", "teste", "teste", "teste", "teste",
                                 "teste", "teste", "teste", "teste", "0");
                         allTasks.add(newTarefa);
@@ -206,7 +206,7 @@ public class SampleCarouselViewFragment extends Fragment {
                 }
 
                 customCarouselView.setViewListener(viewListener);
-                customCarouselView.setPageCount(3);
+                customCarouselView.setPageCount(1);
 
             }
         };

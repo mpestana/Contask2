@@ -121,11 +121,11 @@ public class TasksFragment extends Fragment {
                         }
                     }
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    taskAdapter = new TaskAdapter(yourTasks);
+                    taskAdapter = new TaskAdapter(yourTasks, campaignId);
                     recyclerView.setAdapter(taskAdapter);
 
                     recyclerViewOther.setLayoutManager(new LinearLayoutManager(getContext()));
-                    taskAdapterOther = new TaskAdapter(otherTasks);
+                    taskAdapterOther = new TaskAdapter(otherTasks,campaignId);
                     recyclerViewOther.setAdapter(taskAdapterOther);
 
                     if(yourTasks.size()==0){

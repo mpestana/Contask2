@@ -10,7 +10,7 @@ public class MessageSend {
 
 
 
-    private DocumentReference userReference;
+    private String userReference;
     private String textMessage;
     private long timeMessage;
 
@@ -20,18 +20,18 @@ public class MessageSend {
 
     }
 
-    public MessageSend(DocumentReference userReference, String textMessage, long timeMessage, String uriPhoto) {
+    public MessageSend(String userReference, String textMessage, long timeMessage, String uriPhoto) {
         this.userReference = userReference;
         this.textMessage = textMessage;
         this.timeMessage = timeMessage;
         this.uriPhoto = uriPhoto;
     }
 
-    public DocumentReference getUserReference() {
+    public String getUserReference() {
         return userReference;
     }
 
-    public void setUserReference(DocumentReference userReference) {
+    public void setUserReference(String userReference) {
         this.userReference = userReference;
     }
 

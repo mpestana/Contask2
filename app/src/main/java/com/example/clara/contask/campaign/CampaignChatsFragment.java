@@ -110,13 +110,13 @@ public class CampaignChatsFragment extends Fragment {
 
             @Override
             public void onChanged(ArrayList<Chat> userChats) {
-
+                ArrayList<Chat> auxChatArray = new ArrayList<>();
                 for (int i = 0; i < userChats.size(); i++) {//para cada chat busca o user da ultima mensagem
                     int finalI = i;
                     Chat chat = userChats.get(finalI);
                     Message lastMessage = chat.getMessages().get(chat.getMessages().size() - 1);
-                    String path = lastMessage.getUserReference().getPath();
-                    ArrayList<Chat> auxChatArray = new ArrayList<>();
+                    String path = lastMessage.getUserReference();
+
                     FirebaseFirestore.getInstance().document(path).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -139,7 +139,7 @@ public class CampaignChatsFragment extends Fragment {
             public void onChanged(ArrayList<Chat> newChats) {
 
 
-                if (chats != null) {
+                if (newChats != null && chats!=null && newChats.size()==chats.size()) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     chatsAdapter = new ChatsAdapter((ArrayList<Chat>) newChats.clone());
                     recyclerView.setAdapter(chatsAdapter);

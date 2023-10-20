@@ -13,32 +13,38 @@ public class StageTask implements Parcelable {
 
     private String description;
 
-    private List<String> dependecyStageTasksIds;
 
     private List<String> descriptionImagesUrls;
-    private List<String> deliveryImagesUrls;
-    private String deliveryText;
+
     private long begin;
-    private long end;
 
     private String chatId;
+
+    private int requirePhoto;
 
     private List<String> usersIds;
 
     public StageTask() {
     }
 
-    public StageTask(String title, String description, List<String> dependecyStageTasksIds, List<String> descriptionImagesUrls, List<String> deliveryImagesUrls, String deliveryText, long begin, long end, String chatId, List<String> usersIds) {
+    public StageTask(String title, String description,  List<String> descriptionImagesUrls, long begin, long end, String chatId, int requirePhoto, List<String> usersIds) {
         this.title = title;
         this.description = description;
-        this.dependecyStageTasksIds = dependecyStageTasksIds;
         this.descriptionImagesUrls = descriptionImagesUrls;
-        this.deliveryImagesUrls = deliveryImagesUrls;
-        this.deliveryText = deliveryText;
         this.begin = begin;
-        this.end = end;
         this.chatId = chatId;
+        this.requirePhoto = requirePhoto;
         this.usersIds = usersIds;
+    }
+
+
+
+    public int getRequirePhoto() {
+        return requirePhoto;
+    }
+
+    public void setRequirePhoto(int requirePhoto) {
+        this.requirePhoto = requirePhoto;
     }
 
     public List<String> getDescriptionImagesUrls() {
@@ -49,33 +55,15 @@ public class StageTask implements Parcelable {
         this.descriptionImagesUrls = descriptionImagesUrls;
     }
 
-    public List<String> getDeliveryImagesUrls() {
-        return deliveryImagesUrls;
-    }
-
-    public void setDeliveryImagesUrls(List<String> deliveryImagesUrls) {
-        this.deliveryImagesUrls = deliveryImagesUrls;
-    }
-
-    public String getDeliveryText() {
-        return deliveryText;
-    }
-
-    public void setDeliveryText(String deliveryText) {
-        this.deliveryText = deliveryText;
-    }
 
     protected StageTask(Parcel in) {
         title = in.readString();
         description = in.readString();
-        dependecyStageTasksIds = in.createStringArrayList();
         begin = in.readLong();
-        end = in.readLong();
         chatId = in.readString();
         usersIds = in.createStringArrayList();
         descriptionImagesUrls = in.createStringArrayList();
-        deliveryImagesUrls= in.createStringArrayList();
-        deliveryText=in.readString();
+        requirePhoto=in.readInt();
     }
 
     public static final Creator<StageTask> CREATOR = new Creator<StageTask>() {
@@ -106,13 +94,7 @@ public class StageTask implements Parcelable {
         this.description = description;
     }
 
-    public List<String> getDependecyStageTasksIds() {
-        return dependecyStageTasksIds;
-    }
 
-    public void setDependecyStageTasksIds(List<String> dependecyStageTasksIds) {
-        this.dependecyStageTasksIds = dependecyStageTasksIds;
-    }
 
     public long getBegin() {
         return begin;
@@ -122,13 +104,8 @@ public class StageTask implements Parcelable {
         this.begin = begin;
     }
 
-    public long getEnd() {
-        return end;
-    }
 
-    public void setEnd(long end) {
-        this.end = end;
-    }
+
 
     public String getChatId() {
         return chatId;
@@ -155,14 +132,11 @@ public class StageTask implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(description);
-        dest.writeStringList(dependecyStageTasksIds);
         dest.writeLong(begin);
-        dest.writeLong(end);
         dest.writeString(chatId);
         dest.writeStringList(usersIds);
         dest.writeStringList(descriptionImagesUrls);
-        dest.writeStringList(deliveryImagesUrls);
-        dest.writeString(deliveryText);
+        dest.writeInt(requirePhoto);
 
     }
 }

@@ -18,10 +18,11 @@ public class Campaign {
     private long begin;
     private long end;
 
+    private String chatId;
     public Campaign() {
 
     }
-    public Campaign(String name, List<Message> messagesFeed, List<String> usersIds, List<Task> tasks, String campaignId, String campaignPhotoUrl, long begin, long end) {
+    public Campaign(String name, List<Message> messagesFeed, List<String> usersIds, List<Task> tasks, String campaignId, String campaignPhotoUrl, long begin, long end, String chatId) {
         this.name = name;
         this.messagesFeed = messagesFeed;
         this.usersIds = usersIds;
@@ -30,6 +31,7 @@ public class Campaign {
         this.campaignPhotoUrl = campaignPhotoUrl;
         this.begin = begin;
         this.end = end;
+        this.chatId=chatId;
     }
 
     public String getName() {
@@ -96,4 +98,11 @@ public class Campaign {
         this.end = end;
     }
 
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
 }

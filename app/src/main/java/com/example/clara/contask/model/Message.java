@@ -14,7 +14,7 @@ public class Message  {
 
 
     private User user;
-    private com.google.firebase.firestore.DocumentReference userReference;
+    private String userReference;
 
 
     private String textMessage;
@@ -26,7 +26,7 @@ public class Message  {
 
     }
 
-    public Message(DocumentReference userReference, String textMessage, long timeMessage, String uriPhoto) {
+    public Message(String userReference, String textMessage, long timeMessage, String uriPhoto) {
         this.userReference = userReference;
         this.textMessage = textMessage;
         this.timeMessage = timeMessage;
@@ -42,11 +42,11 @@ public class Message  {
         this.user = user;
     }
 
-    public com.google.firebase.firestore.DocumentReference getUserReference() {
+    public String getUserReference() {
         return userReference;
     }
 
-    public void setUserReference(com.google.firebase.firestore.DocumentReference userReference) {
+    public void setUserReference(String userReference) {
         this.userReference = userReference;
     }
 

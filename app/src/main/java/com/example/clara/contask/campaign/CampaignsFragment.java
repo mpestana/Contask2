@@ -74,7 +74,7 @@ public class CampaignsFragment extends Fragment {
 
     public MutableLiveData<ArrayList<Campaign>> getCampaigns() {
 
-        FirebaseFirestore.getInstance().collection("/campaigns").whereArrayContains("usersIds", FirebaseAuth.getInstance().getUid())
+        FirebaseFirestore.getInstance().collection("/campaigns")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

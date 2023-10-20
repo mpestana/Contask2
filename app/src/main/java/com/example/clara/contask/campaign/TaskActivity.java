@@ -68,6 +68,7 @@ public class TaskActivity extends AppCompatActivity {
     private TextView empty;
     private TextView emptyOther;
     private LinearLayout layoutDescription;
+    private String campaignId;
 
 
     @Override
@@ -86,7 +87,7 @@ public class TaskActivity extends AppCompatActivity {
         emptyOther = findViewById(R.id.text_empty_other);
         layoutDescription = findViewById(R.id.layout_description);
 
-
+        campaignId=getIntent().getParcelableExtra("campaignId");
         task = getIntent().getParcelableExtra("task");
         task.setStageTasks(getIntent().getParcelableArrayListExtra("stages"));
 
@@ -138,11 +139,11 @@ public class TaskActivity extends AppCompatActivity {
                     }
                 }
                 stageTasks.setLayoutManager(llm);
-                stageTaskAdapter = new StageTaskAdapter(yourTasks);
+                stageTaskAdapter = new StageTaskAdapter(yourTasks,campaignId);
                 stageTasks.setAdapter(stageTaskAdapter);
 
                 stageTasksOther.setLayoutManager(llmOther);
-                stageTaskAdapterOther = new StageTaskAdapter(otherTasks);
+                stageTaskAdapterOther = new StageTaskAdapter(otherTasks,campaignId);
                 stageTasksOther.setAdapter(stageTaskAdapterOther);
 
                 if(yourTasks.size()==0){

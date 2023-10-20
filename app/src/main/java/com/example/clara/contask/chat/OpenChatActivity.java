@@ -114,7 +114,7 @@ public class OpenChatActivity extends AppCompatActivity {
                         int finalI = i;
 
                         Message mensage = messages.get(finalI);
-                        String path = mensage.getUserReference().getPath();
+                        String path = mensage.getUserReference();
 
                         FirebaseFirestore.getInstance().document(path).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
@@ -167,7 +167,7 @@ public class OpenChatActivity extends AppCompatActivity {
                 if (text != null && !text.isEmpty()) {
                     String userId = FirebaseAuth.getInstance().getUid();
                     long time = System.currentTimeMillis();
-                    DocumentReference userReference = FirebaseFirestore.getInstance().document("users/" + userId);
+                    String userReference = FirebaseFirestore.getInstance().document("users/" + userId).getPath();
 
 
                     MessageSend messageSend = new MessageSend(userReference, text, time, null);
@@ -185,7 +185,7 @@ public class OpenChatActivity extends AppCompatActivity {
                     FirebaseFirestore.getInstance().document("chats/" + chatId).update("messages", messageCopySends);
 
                     //enviando as notificacoes
-                    userReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    FirebaseFirestore.getInstance().document(userReference).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             User user= documentSnapshot.toObject(User.class);
@@ -281,7 +281,7 @@ public class OpenChatActivity extends AppCompatActivity {
 
                             String userId = FirebaseAuth.getInstance().getUid();
                             long time = System.currentTimeMillis();
-                            DocumentReference userReference = FirebaseFirestore.getInstance().document("users/" + userId);
+                            String userReference = FirebaseFirestore.getInstance().document("users/" + userId).getPath();
 
 
                             MessageSend messageSend = new MessageSend(userReference, null, time, uri.toString());
@@ -299,7 +299,7 @@ public class OpenChatActivity extends AppCompatActivity {
                             FirebaseFirestore.getInstance().document("chats/" + chatId).update("messages", messageCopySends);
 
                             //enviando as notificacoes
-                            userReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            FirebaseFirestore.getInstance().document(userReference).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     User user= documentSnapshot.toObject(User.class);

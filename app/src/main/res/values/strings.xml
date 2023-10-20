@@ -31,12 +31,12 @@
     <string name="name">Nome</string>
     <string name="password">Senha</string>
     <string name="password_message">A senha deve conter ao menos 6 caracteres</string>
-    <string name="check_fields">Confira os campos</string>
+    <string name="check_fields">Confira os campos e se selecionou uma foto</string>
     <string name="password_diferent">Senhas diferentes</string>
     <string name="password_confirm">Confirmar senha</string>
     <string name="register">Não tem uma conta? Crie aqui!</string>
     <string name="title_activity_register">RegisterActivity</string>
-    <string name="sucess_register">Registro efetuado com sucesso</string>
+    <string name="sucess_register">Registro efetuado com sucesso. Aguarde um momento...</string>
     <string name="error_register">Ocorreu um erro no registro, tente novamente</string>
     <string name="invalid_email">Email inválido</string>
     <string name="invalid_password">Senha inválida</string>
@@ -48,6 +48,7 @@
     <string name="chats">Conversas</string>
     <string name="settings">Ajustes</string>
     <string name="logout">Sair</string>
+    <string name="hint_delivery">Digite a resposta ou alguma informação sobre a task...</string>
     <string name="hint_name">Digite seu nome</string>
     <string name="hint_email">Digite seu email</string>
     <string name="hint_password">Digite sua senha</string>
@@ -70,5 +71,13 @@
     <string name="begin">Inicio</string>
     <string name="end">fim</string>
     <string name="deliver_stage_task">Entregar Tarefa</string>
+    <string name="delivered_stage_task">Entrega da tarefa</string>
+    <string name="no_tasks">Não há tarefas disponíveis agora.</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="send">Enviar</string>
+    <string name="request_photos">Para concluir essa task é preciso enviar no minimo </string>
+    <string name="photos"> foto(s)</string>
+    <string name="faliure_delivery">Houve um erro tente novamente</string>
 
 </resources>
