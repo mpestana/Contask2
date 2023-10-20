@@ -80,7 +80,7 @@ public class StageTaskAdapter extends RecyclerView.Adapter<StageTaskAdapter.Camp
             FirebaseFirestore.getInstance().document("/stageTasksAnswers/"+task.getChatId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if(value!= null){
+                    if(value.exists()){
                         status.setBackground(status.getContext().getResources().getDrawable(R.drawable.circle_status_task_red));
                     }
                 }

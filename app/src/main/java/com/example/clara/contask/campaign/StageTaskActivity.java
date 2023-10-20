@@ -160,7 +160,7 @@ public class StageTaskActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void unused) {
                             layoutDelivery.setVisibility(View.GONE);
-
+                            addPhoto.setVisibility(View.GONE);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -212,6 +212,7 @@ public class StageTaskActivity extends AppCompatActivity {
                 toApply.setVisibility(View.GONE);
             } else {
                 deliverStageTask.setVisibility(View.GONE);
+                layoutDelivery.setVisibility(View.GONE);
             }
 
             DisplayMetrics displayMetrics = new DisplayMetrics();

@@ -62,6 +62,7 @@
         android:layout_gravity="center"
         android:background="@drawable/message_system"
         android:text="Texto "
+        android:layout_marginHorizontal="15dp"
         android:textColor="@color/white"
         android:textSize="@dimen/text_large"
         android:autoLink="all"
