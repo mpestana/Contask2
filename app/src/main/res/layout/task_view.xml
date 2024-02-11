@@ -5,7 +5,7 @@
     android:gravity="center">
 
     <TextView
-        android:text="There is no tasks available now."
+        android:text="@string/no_tasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/taskText" />
@@ -18,7 +18,7 @@
         android:visibility="invisible">
 
         <RadioButton
-            android:text="Yes"
+            android:text="@string/yes"
             style="@style/AppTheme.PopupOverlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:id="@+id/radioButton" />
 
         <RadioButton
-            android:text="No"
+            android:text="@string/yes"
             style="@style/AppTheme.PopupOverlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="text6 demo" />
+        android:hint="" />
 
     <RelativeLayout
         android:id="@+id/relativeLayoutNivel"
@@ -90,7 +90,7 @@
     </RelativeLayout>
 
     <Button
-        android:text="Send"
+        android:text="@string/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/send_task"

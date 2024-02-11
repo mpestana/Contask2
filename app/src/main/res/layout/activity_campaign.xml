@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.clara.contask.campaign.CampaignActivity">
+
+
+    <FrameLayout
+        android:id="@+id/mainFragment"
+        class="com.example.clara.contask.SampleCarouselViewFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorCampaign"
+        app:menu="@menu/menu_bottom_campaign"
+        app:itemIconTint="@color/bnv_tab_item_color"
+        app:itemTextColor="@color/bnv_tab_item_color"
+        app:itemTextAppearanceActive="@color/colorAccent"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_main"
+        app:layout_constraintEnd_toEndOf="@+id/activity_main"
+        app:layout_constraintStart_toStartOf="@+id/activity_main"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

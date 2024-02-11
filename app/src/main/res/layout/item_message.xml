@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+
+        <LinearLayout
+            android:id="@+id/layoutMessageMine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/messageUserNameMine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Você • 01/01/22 • 9:07"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_gravity="right"
+                >
+
+            </TextView>
+            <ImageView
+                android:id="@+id/imageViewTextMessageMine"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:background="@drawable/message_photo_me"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                android:layout_gravity="right"
+                >
+
+            </ImageView>
+            <TextView
+                android:id="@+id/textViewTextMessageMine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="100dp"
+                android:layout_gravity="right"
+                android:autoLink="all"
+                android:background="@drawable/message_me"
+                android:textColor="@color/white"
+                android:text="Texto "
+                android:textSize="@dimen/text_medium"
+                >
+
+            </TextView>
+        </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textViewTextMessageSystem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/message_system"
+        android:text="Texto "
+        android:layout_marginHorizontal="15dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_large"
+        android:autoLink="all"
+
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </TextView>
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/layoutMessageOther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/photoChat"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="5dp"
+                >
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+
+                >
+                <TextView
+                    android:id="@+id/messageUserNameOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Usuario Teste • 01/01/22 • 9:07"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    >
+
+                </TextView>
+                <ImageView
+                    android:id="@+id/imageViewTextMessageOther"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/message_photo_from"
+                    android:adjustViewBounds="true"
+                    android:visibility="gone"
+                    >
+
+                </ImageView>
+                <TextView
+                    android:id="@+id/textViewTextMessageOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/message_from"
+                    android:textColor="@color/black"
+                    android:text="Texto "
+                    android:autoLink="all"
+
+                    android:textSize="@dimen/text_medium"
+
+                    >
+
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>

@@ -7,28 +7,32 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.clara.contask.campaign.CampaignsFragment;
+import com.example.clara.contask.chat.ChatsFragment;
 import com.example.clara.contask.model.Abelha;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.awareness.state.Weather;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -47,25 +51,26 @@ public class MainActivity extends AppCompatActivity {
     private List<Abelha> abelhasList = new ArrayList<Abelha>();
     Boolean sem_enxame = true;
 
+    private BottomNavigationView bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /****** Facebook Data *********/
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        Bundle inBundle = getIntent().getExtras();
-        String name = inBundle.get("name").toString();
-        String surname = inBundle.get("surname").toString();
-        String imageUrl = inBundle.get("imageUrl").toString();
 
-        Log.i("MainActivity2", "Worker Complete Name: " + name + " " + surname);
+        verifyAuthentication();
 
-        TextView nameView = (TextView) findViewById(R.id.nameAndSurname);
-        nameView.setText(" " + name + " " + surname);
-        new DownloadImage((ImageView) findViewById(R.id.profileImage)).execute(imageUrl);
+        bottomNavigation = findViewById(R.id.bottomNavigationView);
+        bottomNavigation.setOnNavigationItemSelectedListener(navListener);
+
+        //tela inicial
+        startService(new Intent(this, ServiceTask.class));
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SampleCarouselViewFragment()).commit();
+
+        //new DownloadImage((ImageView) findViewById(R.id.profileImage)).execute(imageUrl);
 
         statusCheck();
+
 
         String channelId = "channel-01";
         String channelName = "Channel Name";
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Gson gson = new Gson();
-                if(abelhasList!=null){
+                if (abelhasList != null && abelhasList.size() != 0) {
                     abelhasList = Arrays.asList(gson.fromJson(intent.getStringExtra("allAbelhas"), Abelha[].class));
                     if (abelhasList.size() != 0) {
                         for (Abelha a : abelhasList) {
@@ -102,6 +107,16 @@ public class MainActivity extends AppCompatActivity {
                             builder.setAutoCancel(true);
 
                             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(MainActivity.this);
+                            if (ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                                // TODO: Consider calling
+                                //    ActivityCompat#requestPermissions
+                                // here to request the missing permissions, and then overriding
+                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                //                                          int[] grantResults)
+                                // to handle the case where the user grants the permission. See the documentation
+                                // for ActivityCompat#requestPermissions for more details.
+                                return;
+                            }
                             managerCompat.notify(1, builder.build());
                             //showNotification(MainActivity.this , "ALERTA", "ENXAME DE ABELHAS DETECTADO");
 
@@ -112,6 +127,35 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    if(menuItem.getItemId()==R.id.search){
+                        startService(new Intent(getApplicationContext(), ServiceTask.class));
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SampleCarouselViewFragment()).commit();
+
+                    } else if (menuItem.getItemId()==R.id.settings) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new SettingsFragment()).commit();
+
+                    }
+                    else if (menuItem.getItemId()==R.id.chat) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new ChatsFragment()).commit();
+
+                    }
+                    else if (menuItem.getItemId()==R.id.campaigns) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new CampaignsFragment()).commit();
+
+                    }
+                    else if (menuItem.getItemId()==R.id.tasks) {
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment,new ChatsFragment()).commit();
+
+                    }
+
+                    return true;
+                }
+            };
 
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
@@ -127,6 +171,14 @@ public class MainActivity extends AppCompatActivity {
         /* Pedido para ativar gps */
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
+        }
+    }
+
+    public void verifyAuthentication() {
+        if (FirebaseAuth.getInstance().getUid() == null) {
+            Intent goLogin = new Intent(MainActivity.this, LoginActivity.class);
+            goLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(goLogin);
         }
     }
 
@@ -190,15 +242,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(login);
         finish();
     }
-
-
-    public void loadScrollActivity(View view) {
-
-        Intent intent = new Intent(this, SampleCarouselViewActivity.class);
-        startService(new Intent(this, ServiceTask.class));
-        startActivity(intent);
-    }
-
 
 
 }

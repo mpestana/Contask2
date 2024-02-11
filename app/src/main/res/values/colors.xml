@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#fdc600</color>
+    <color name="colorPrimaryDark">#FFB600</color>
+    <color name="colorPrimaryLight">#ffe831</color>
+    <color name="colorPurple">#5c0099</color>
+    <color name="colorAccent">#b2b6bd</color>
+    <color name="colorGreen">#1CDD24</color>
+    <color name="colorRed">#FF1100</color>
+
+    <color name="white">#FFF</color>
+    <color name="gray_light">#e9ecef</color>
+    <color name="black">#000</color>
+    <color name="colorCampaign">#73d2de</color>0077b6
+    <color name="colorTask">#80ed99</color>
+    <color name="colorStageTask">#f45b69</color>
+
+
 </resources>
